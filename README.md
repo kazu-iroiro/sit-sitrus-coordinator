@@ -1,4 +1,4 @@
-# sit-sitrus-coordinator
+# SITRUS Coordinator
 
 芝浦工業大学の履修管理ポータルサイト、SITRUSのUIをリッチにするためのChrome拡張機能です。
 
