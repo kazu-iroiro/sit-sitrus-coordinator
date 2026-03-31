@@ -1,0 +1,35 @@
+{
+  "manifest_version": 3,
+  "name": "SITRUS Coordinator",
+  "version": "1.0.0",
+  "description": "履修登録システムのUIを改善し、より使いやすくするChrome拡張機能です。",
+  "icons": {
+    "16": "assets/icons/icon16.png",
+    "48": "assets/icons/icon48.png",
+    "128": "assets/icons/icon128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://*.shibaura-it.ac.jp/*" 
+      ],
+      "css": ["src/content/content.css"],
+      "js": ["src/content/content.js"],
+      "run_at": "document_end"
+    }
+  ],
+  "background": {
+    "service_worker": "src/background/background.js"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "assets/images/background.jpg",
+        "assets/images/logo.svg"
+      ],
+      "matches": [
+        "https://*.shibaura-it.ac.jp/*"
+      ]
+    }
+  ]
+}
