@@ -32,7 +32,7 @@ body.sitrus-coordinator-active {
     z-index: 10;
 }
 
-/* --- Bootstrap・元のスタイルの無効化・再配置 --- */
+/* ログインページのレイアウト調整 */
 body.sitrus-coordinator-active .container {
     height: 100% !important;
     display: flex !important;
@@ -42,7 +42,7 @@ body.sitrus-coordinator-active .container {
     padding-bottom: 16vh !important;
 }
 
-/* ログインボックスの装飾（白背景、枠線、影）を完全に消去 */
+/* ログインボックスをリセット */
 body.sitrus-coordinator-active .login-box {
     background-color: transparent !important;
     border: none !important;
@@ -52,7 +52,7 @@ body.sitrus-coordinator-active .login-box {
     padding: 0;
 }
 
-/* --- 入力フォーム (教職員向け) --- */
+/* 入力フォーム */
 .hidden-form {
     display: none !important;
 }
@@ -71,7 +71,7 @@ body.sitrus-coordinator-active .form-group label {
     margin-bottom: clamp(3px, 0.5svw, 5px);
 }
 
-/* --- 認証開始ボタン --- */
+/* ログインボタン */
 body.sitrus-coordinator-active #loginButton {
     background-color: rgba(0, 0, 0, 0.4) !important;
     border: clamp(2px, 0.3svw, 3px) solid white !important;
@@ -114,7 +114,7 @@ body.sitrus-coordinator-active #loginButton:hover {
     opacity: 0.7;
 }
 
-/* 展開ボタンのアニメーション設定 */
+/* トグル矢印 */
 .sc-toggle-arrow {
     display: inline-block;
     transition: transform 0.3s ease;
@@ -127,7 +127,7 @@ body.sitrus-coordinator-active #loginButton:hover {
 }
 
 
-/* --- 入力フォーム (教職員向け) --- */
+/* フォーム表示/非表示 */
 body.sitrus-coordinator-active .form-group {
     position: absolute;
     top: 100%;
@@ -146,7 +146,6 @@ body.sitrus-coordinator-active .form-group {
     text-align: left;
     box-sizing: border-box;
 
-    /* アニメーションの設定 */
     opacity: 1;
     visibility: visible;
     max-height: clamp(100px, 20svh, 150px);
@@ -159,7 +158,7 @@ body.sitrus-coordinator-active .form-group label {
     margin-bottom: clamp(3px, 0.5svw, 5px);
 }
 
-/* 閉じている状態（非表示）のスタイル */
+/* 非表示時 */
 body.sitrus-coordinator-active .form-group.sc-form-hidden {
     opacity: 0;
     visibility: hidden;
@@ -169,7 +168,7 @@ body.sitrus-coordinator-active .form-group.sc-form-hidden {
     padding-bottom: 0;
 }
 
-/* --- バージョン表記 --- */
+/* バージョン表記 */
 #sc-version-text {
     position: absolute;
     bottom: 2vh;
@@ -180,7 +179,7 @@ body.sitrus-coordinator-active .form-group.sc-form-hidden {
     z-index: 10;
 }
 
-/* --- レスポンシブ調整 --- */
+/* レスポンシブ */
 @media (max-width: 768px) {
     #sc-logo-container {
         top: 3vh;
@@ -197,19 +196,19 @@ body.sitrus-coordinator-active .form-group.sc-form-hidden {
    Navbar Brand Styling
    ========================================================================== */
 
-/* ナビゲーションバーのブランド部分（スタイル調整） */
+/* ブランド部分 */
 .navbar-brand {
     display: inline-flex !important;
     align-items: baseline !important;
     gap: 0.3em;
 }
 
-/* 主テキスト「SITRUSシステム」 */
+/* メインテキスト */
 .navbar-brand-main {
     display: inline;
 }
 
-/* 「with SITRUS Coordinator」のサブテキスト */
+/* サブテキスト */
 .navbar-brand-subtitle {
     font-size: 70% !important;
     vertical-align: baseline !important;
@@ -222,14 +221,14 @@ body.sitrus-coordinator-active .form-group.sc-form-hidden {
    Dashboard
    ========================================================================== */
 
-/* Bodyの青色指定を解除 */
+/* ダッシュボード背景 */
 html,
 body.sitrus-coordinator-dashboard {
     font-family: 'BIZ UDP Gothic', sans-serif !important;
     background-color: transparent !important;
 }
 
-/* タブの大枠と中身の背景透過 */
+/* タブ背景透過 */
 body.sitrus-coordinator-dashboard .nav-tabs,
 body.sitrus-coordinator-dashboard .tab-content,
 body.sitrus-coordinator-dashboard .tab-pane {
@@ -239,7 +238,7 @@ body.sitrus-coordinator-dashboard .tab-pane {
     padding-top: 0 !important;
 }
 
-/* スクロールバー対策と調整 */
+/* サイドバー */
 body.sitrus-coordinator-dashboard .sidebar-sticky {
     background: rgba(0, 0, 0, 0.7) !important;
     backdrop-filter: blur(10px);
@@ -255,7 +254,7 @@ body.sitrus-coordinator-dashboard .sidebar-sticky {
     overflow-y: hidden !important;
 }
 
-/* タブが2段に折れ曲がる問題の修正 */
+/* タブレイアウト */
 body.sitrus-coordinator-dashboard .nav-tabs {
     display: flex !important;
     flex-wrap: nowrap !important;
@@ -266,13 +265,13 @@ body.sitrus-coordinator-dashboard .nav-tabs {
     padding: 0 !important;
 }
 
-/* .nav の上部余白を完全にリセット */
+/* ナビゲーション */
 body.sitrus-coordinator-dashboard .nav {
     margin-top: 0 !important;
     padding-top: 0 !important;
 }
 
-/* 非アクティブなタブ */
+/* 非アクティブタブ */
 body.sitrus-coordinator-dashboard .nav-tabs .nav-link {
     color: rgba(255, 255, 255, 0.6) !important;
     border: none !important;
@@ -298,7 +297,7 @@ body.sitrus-coordinator-dashboard .nav-tabs .nav-link.active {
     font-weight: bold;
 }
 
-/* メニューボタン群 (.button_list) */
+/* メニューボタン */
 body.sitrus-coordinator-dashboard .tab-pane a.button_list {
     display: flex !important;
     align-items: center !important;
@@ -327,7 +326,7 @@ body.sitrus-coordinator-dashboard .tab-pane a.button_list:hover {
 }
 
 
-/* 3. アイコン画像の背景透過マジック */
+/* ボタンアイコン */
 body.sitrus-coordinator-dashboard .tab-pane a.button_list img {
     margin-right: clamp(8px, 1svw, 12px) !important;
     width: clamp(16px, 2svw, 20px) !important;
@@ -338,12 +337,12 @@ body.sitrus-coordinator-dashboard .tab-pane a.button_list img {
     mix-blend-mode: screen !important;
 }
 
-/* 各タブ内で一番上のボタン */
+/* 最初のボタン */
 body.sitrus-coordinator-dashboard .tab-pane a.button_list:first-child {
     margin-top: 0 !important;
 }
 
-/* tab-contentの余白 */
+/* タブコンテンツ余白 */
 body.sitrus-coordinator-dashboard .tab-content {
     padding-top: 0 !important;
     margin-top: 0 !important;
@@ -367,7 +366,7 @@ body.sitrus-coordinator-dashboard .tab-content {
     align-items: center !important;
 }
 
-/* 表示状態の時のみスタイル適用 */
+/* ローディング表示状態 */
 #loading:not([style*="display: none"]) {
     display: flex !important;
 }
@@ -382,16 +381,7 @@ body.sitrus-coordinator-dashboard .tab-content {
     font-family: 'BIZ UDP Gothic', sans-serif !important;
 }
 
-/* スピナー（ローディングアニメーション） */
-#spinner .spinner-border {
-    width: clamp(2.5rem, 10svw, 4rem) !important;
-    height: clamp(2.5rem, 10svw, 4rem) !important;
-    border: clamp(2px, 0.4svw, 4px) solid rgba(255, 255, 255, 0.2) !important;
-    border-top-color: white !important;
-    color: white !important;
-}
-
-/* スピナー（ローディングアニメーション） */
+/* ローディングスピナー */
 #spinner .spinner-border {
     width: clamp(2.5rem, 10svw, 4rem) !important;
     height: clamp(2.5rem, 10svw, 4rem) !important;
@@ -414,7 +404,7 @@ body.sitrus-coordinator-dashboard .tab-content {
    Header Navigation
    ========================================================================== */
 
-/* ユーザー名・学籍番号ボタン */
+/* ユーザー名ボタン */
 #userName {
     border-radius: clamp(6px, 0.8svw, 8px) !important;
     transition: all 0.2s ease !important;
@@ -426,7 +416,7 @@ body.sitrus-coordinator-dashboard .tab-content {
     box-shadow: 0 clamp(2px, 0.5svh, 4px) clamp(8px, 1.5svw, 12px) rgba(0, 0, 0, 0.2) !important;
 }
 
-/* 言語切り替えボタン */
+/* 言語切り替え */
 #JpnEngMode {
     border-radius: clamp(6px, 0.8svw, 8px) !important;
     transition: all 0.2s ease !important;
@@ -443,7 +433,7 @@ body.sitrus-coordinator-dashboard .tab-content {
    Modal
    ========================================================================== */
 
-/* 1. モーダルの外枠 */
+/* モーダルコンテナ */
 div.modal.msg_box_YesNo {
     display: flex !important;
     align-items: center !important;
@@ -454,7 +444,7 @@ div.modal.msg_box_YesNo {
     border-radius: clamp(12px, 2svw, 16px) !important;
 }
 
-/* 2. モーダルの中央の箱 */
+/* モーダルダイアログ */
 div.modal.msg_box_YesNo .modal-dialog {
     width: clamp(80%, 90svw, 90%) !important;
     max-width: clamp(300px, 60svw, 380px) !important;
@@ -465,7 +455,7 @@ div.modal.msg_box_YesNo .modal-dialog {
     border: none !important;
 }
 
-/* 3. モーダルの白い本体 */
+/* モーダル本体 */
 div.modal.msg_box_YesNo .modal-content {
     height: auto !important;
     background-color: #ffffff !important;
@@ -475,7 +465,7 @@ div.modal.msg_box_YesNo .modal-content {
     overflow: hidden !important;
 }
 
-/* 4. ヘッダー部分 */
+/* モーダルヘッダー */
 div.modal.msg_box_YesNo .modal-header {
     background-color: #ffffff !important;
     border-bottom: max(1px, 0.1svw) solid #eeeeee !important;
@@ -510,7 +500,7 @@ div.modal.msg_box_YesNo .close:hover {
     color: #333333 !important;
 }
 
-/* 5. メッセージ本文 */
+/* モーダルメッセージ */
 div.modal.msg_box_YesNo .modal-body1 {
     background-color: #ffffff !important;
     padding: clamp(20px, 3svh, 30px) clamp(15px, 2svw, 20px) !important;
@@ -525,7 +515,7 @@ div.modal.msg_box_YesNo .jik_kakunin_body {
     font-weight: normal !important;
 }
 
-/* 6. フッター（ボタンエリア） */
+/* モーダルフッター */
 div.modal.msg_box_YesNo .modal-footer {
     background-color: #ffffff !important;
     border-top: none !important;
@@ -637,14 +627,13 @@ body.sitrus-coordinator-dashboard .ag-theme-balham {
     border: max(1px, 0.1svw) solid rgba(0, 0, 0, 0.1) !important;
 }
 
-/* ag-Grid のヘッダーをテーマカラーに */
+/* グリッドヘッダー */
 body.sitrus-coordinator-dashboard .ag-header {
     background-color: #f1f5f9 !important;
     border-bottom: clamp(1px, 0.2svw, 2px) solid #4a6fa5 !important;
 }
 
 body.sitrus-coordinator-dashboard .ag-header-cell-label {
-    /* 文字色を白から、テーマカラーの濃い青に変更 */
     color: #4a6fa5 !important;
     font-weight: bold !important;
 }
@@ -654,13 +643,13 @@ body.sitrus-coordinator-dashboard {
     background-color: #f4f6f9 !important;
 }
 
-/* ag-Grid の各列の区切り線 */
+/* グリッド列 */
 body.sitrus-coordinator-dashboard .ag-header-cell {
     border-right: max(1px, 0.1svw) solid rgba(0, 0, 0, 0.05) !important;
 }
 
 
-/* 履修履歴などの表のヘッダー */
+/* テーブルヘッダー */
 body.sitrus-coordinator-dashboard table thead th {
     background-color: #f1f5f9 !important;
     color: #4a6fa5 !important;
@@ -670,7 +659,7 @@ body.sitrus-coordinator-dashboard table thead th {
     padding: clamp(8px, 1.2svh, 12px) clamp(6px, 0.8svw, 8px) !important;
 }
 
-/* 表の縦線 */
+/* テーブルセル */
 body.sitrus-coordinator-dashboard table td,
 body.sitrus-coordinator-dashboard table th {
     border-color: rgba(0, 0, 0, 0.03) !important;
