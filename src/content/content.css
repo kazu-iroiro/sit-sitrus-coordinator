@@ -21,7 +21,7 @@ body.sitrus-coordinator-active {
 /* --- ロゴの配置 --- */
 #sc-logo-container {
     position: absolute;
-    top: 5vh;
+    top: 6vh;
     left: 4vw;
     width: 35vw;
     height: 15vh;
