@@ -8,10 +8,10 @@
 
 0. このREADME.mdに記載されているライセンスに同意します
 
-1. このリポジトリをクローンまたはダウンロードします
+1. このリポジトリをクローンします
 
 > [!NOTE]
-> 画面右上、緑色の **<>Code** と書かれたボタンをクリックし、一番下のDownload ZIPを選択すると、Gitが未導入の環境でもダウンロードできます
+> [GitHubのRelease](https://github.com/kazu-iroiro/sit-sitrus-coordinator/releases/latest)からZIPファイルをダウンロードすることもできます
 
 2. [Chromeの拡張機能設定](chrome://extensions/)を開きます。
 
