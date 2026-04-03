@@ -33,6 +33,10 @@ class SitrusCoordinator {
     async filterAndApplySitrusCss(href) {
         try {
             const response = await fetch(href);
+            if (!response.ok) {
+                console.warn(`SITRUS Coordinator: CSSの取得に失敗しました。 status=${response.status} href=${href}`);
+                return;
+            }
             let cssText = await response.text();
 
             // 削除する既知のセレクタ
