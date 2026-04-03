@@ -994,6 +994,15 @@ body.sitrus-coordinator-dashboard a#hicyusen_kikan2 {
     cursor: default !important;
 }
 
+/* ==========================================================================
+   履修申請画面 - 単位取得状況サイドバーの幅調整
+   ========================================================================== */
+
+body.sitrus-coordinator-dashboard a#hicyusen_kikan nav {
+    flex: 0 0 40svw !important;
+    max-width: 40svw !important;
+}
+
 body.sitrus-coordinator-dashboard .dataTables_wrapper .row {
     display: flex !important;
     flex-direction: row !important;
