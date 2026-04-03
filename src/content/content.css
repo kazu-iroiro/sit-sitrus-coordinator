@@ -256,7 +256,7 @@ body.sitrus-coordinator-dashboard .sidebar-sticky {
     position: fixed;
     width: 17%;
     height: 90%;
-    
+
     background: rgba(0, 0, 0, 0.7) !important;
     backdrop-filter: blur(10px);
     border-radius: clamp(12px, 2svw, 16px) !important;
@@ -618,7 +618,7 @@ body.sitrus-coordinator-dashboard .jumbotron {
     border-radius: clamp(9px, 1.2svw, 12px) !important;
     padding: clamp(15px, 2svh, 20px) clamp(18px, 2.5svw, 25px) !important;
     margin-bottom: clamp(15px, 2svh, 20px) !important;
-    
+
     max-height: 800px;
     opacity: 1;
     overflow: hidden;
@@ -723,7 +723,8 @@ body.sitrus-coordinator-dashboard ._navbar_fixed_top_slide2 {
     width: 21%;
     height: 90%;
     box-shadow: 0px 0px 10px 10px rgba(0, 0, 0, 0.45), 10px 10px 10px 0px rgba(0, 0, 0, 0.45);
-    overflow: auto !important;
+    /* overflow: auto !important; */
+    overflow-y: scroll !important;
     right: 0.5% !important;
 }
 
@@ -803,7 +804,7 @@ body.sitrus-coordinator-dashboard .sc-main-header .sc-tab-btn {
 }
 
 body.sitrus-coordinator-dashboard .sc-main-header .sc-tab-btn:hover {
-    background: rgba(0,0,0,0.05) !important;
+    background: rgba(0, 0, 0, 0.05) !important;
 }
 
 /* アクティブなタブ */
@@ -811,7 +812,7 @@ body.sitrus-coordinator-dashboard .sc-main-header .sc-tab-btn.sc-active,
 body.sitrus-coordinator-dashboard .sc-main-header .sc-tab-btn[style*="yellow"] {
     background: var(--card-bg) !important;
     color: var(--sit-green) !important;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.08) !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08) !important;
 }
 
 /* 説明文の開閉(最小化)ボタン */
@@ -843,7 +844,7 @@ body.sitrus-coordinator-dashboard .sc-main-header .sc-tab-btn[style*="yellow"] {
 body.sitrus-coordinator-dashboard .container-fluid {
     padding: 0 !important;
     margin-top: 50px !important;
-    height: calc(100vh - 50px) !important;
+    /* height: calc(100vh - 50px) !important; */
     width: 100% !important;
     overflow: hidden !important;
 }
@@ -853,12 +854,12 @@ body.sitrus-coordinator-dashboard .row {
     flex-direction: row !important;
     flex-wrap: nowrap !important;
     margin: 0 !important;
-    height: 100% !important;
+    height: calc(100vh - 50px) !important;
     width: 100% !important;
-    
+
     /* 上下左右の余白 ＆ 要素間の隙間 */
-    padding: clamp(10px, 1.5svh, 15px) clamp(15px, 2svw, 25px) !important; 
-    gap: clamp(12px, 1.5svw, 20px) !important; 
+    padding: clamp(10px, 1.5svh, 15px) clamp(15px, 2svw, 25px) !important;
+    gap: clamp(12px, 1.5svw, 20px) !important;
     box-sizing: border-box !important;
 }
 
@@ -904,7 +905,6 @@ body.sitrus-coordinator-dashboard [class^="_navbar_fixed_top_slide"] {
     left: 0 !important;
     right: 0 !important;
     width: 100% !important;
-    height: 100% !important;
     margin: 0 !important;
     box-shadow: 0 clamp(4px, 0.8svw, 8px) clamp(20px, 3svw, 32px) rgba(0, 0, 0, 0.1) !important;
     border-radius: clamp(12px, 2svw, 16px) !important;
@@ -957,7 +957,7 @@ body.sitrus-coordinator-dashboard #j_list,
 body.sitrus-coordinator-dashboard #sk_list,
 body.sitrus-coordinator-dashboard .ag-theme-balham:not(.ag-popup) {
     width: 100% !important;
-    
+
     background: rgba(255, 255, 255, 0.95) !important;
     backdrop-filter: blur(10px) !important;
     border: none !important;
@@ -975,7 +975,8 @@ body.sitrus-coordinator-dashboard .ag-theme-balham:not(.ag-popup) {
     width: 100% !important;
 }
 
-#yt_list th, #yt_list td {
+#yt_list th,
+#yt_list td {
     padding: 4px 8px !important;
     white-space: normal !important;
 }
@@ -1011,7 +1012,9 @@ body.sitrus-coordinator-dashboard .dataTables_wrapper .col-sm-12 {
     padding: 0 !important;
 }
 
-body.sitrus-coordinator-dashboard #ji_list {
+/* #ji_list などの DataTables 本体 */
+body.sitrus-coordinator-dashboard #ji_list,
+body.sitrus-coordinator-dashboard #s_list {
     display: table !important;
     width: 100% !important;
     background: rgba(255, 255, 255, 0.95) !important;
@@ -1020,7 +1023,7 @@ body.sitrus-coordinator-dashboard #ji_list {
     border-radius: clamp(12px, 2svw, 16px) !important;
     box-shadow: 0 clamp(4px, 0.8svw, 8px) clamp(20px, 3svw, 32px) rgba(0, 0, 0, 0.1) !important;
     margin-top: 10px !important;
-    overflow: hidden !important;
+    overflow-y: visible !important;
 }
 
 body.sitrus-coordinator-dashboard #ji_list thead th {
@@ -1085,9 +1088,9 @@ body.sitrus-coordinator-dashboard.page-timetable #itiran_list {
     height: 100% !important;
     min-height: 0 !important;
     width: 100% !important;
-    
+
     margin-top: clamp(10px, 1.5svh, 15px) !important;
-    
+
     /* 既存のデザイン指定引き継ぎ */
     background: rgba(255, 255, 255, 0.95) !important;
     backdrop-filter: blur(10px) !important;
@@ -1106,11 +1109,13 @@ body.sitrus-coordinator-dashboard.page-timetable #itiran_list {
     font-weight: bold;
     font-size: 1.2em;
 }
+
 .modal-body1 {
     max-height: calc(49vh - 50px);
     overflow-y: auto;
     cursor: not-allowed !important;
 }
+
 .jik_kakunin_body {
     flex: 1 1 auto;
     overflow-y: auto;
