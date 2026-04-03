@@ -1097,28 +1097,6 @@ body.sitrus-coordinator-dashboard.page-timetable #itiran_list {
     overflow: hidden !important;
 }
 
-
-/* 履修履歴等、その他のページ用の共通レイアウト ★★★ */
-
-body.sitrus-coordinator-dashboard:not(.page-timetable) #r_list,
-body.sitrus-coordinator-dashboard:not(.page-timetable) #ji_list,
-body.sitrus-coordinator-dashboard:not(.page-timetable) .ag-theme-balham {
-    width: 100% !important;
-    
-    background: rgba(255, 255, 255, 0.95) !important;
-    backdrop-filter: blur(10px) !important;
-    border: none !important;
-    border-radius: clamp(12px, 2svw, 16px) !important;
-    box-shadow: 0 clamp(4px, 0.8svw, 8px) clamp(20px, 3svw, 32px) rgba(0, 0, 0, 0.1) !important;
-    overflow: hidden !important;
-    
-    height: auto !important;
-    min-height: 400px !important;
-}
-
-
-
-
 /* sitrus.cssの引継ぎ */
 .jik_kakunin_header {
     position: sticky;
