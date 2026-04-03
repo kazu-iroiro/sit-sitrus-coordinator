@@ -953,7 +953,9 @@ body.sitrus-coordinator-dashboard [class^="_navbar_fixed_top_slide"] .col-sm:has
 body.sitrus-coordinator-dashboard #itiran_list,
 body.sitrus-coordinator-dashboard #r_list,
 body.sitrus-coordinator-dashboard #ji_list,
-body.sitrus-coordinator-dashboard .ag-theme-balham {
+body.sitrus-coordinator-dashboard #j_list,
+body.sitrus-coordinator-dashboard #sk_list,
+body.sitrus-coordinator-dashboard .ag-theme-balham:not(.ag-popup) {
     width: 100% !important;
     
     background: rgba(255, 255, 255, 0.95) !important;
@@ -961,7 +963,7 @@ body.sitrus-coordinator-dashboard .ag-theme-balham {
     border: none !important;
     border-radius: clamp(12px, 2svw, 16px) !important;
     box-shadow: 0 clamp(4px, 0.8svw, 8px) clamp(20px, 3svw, 32px) rgba(0, 0, 0, 0.1) !important;
-    overflow: hidden !important;
+    overflow: visible !important;
 }
 
 /* ==========================================================================
