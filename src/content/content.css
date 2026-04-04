@@ -253,8 +253,6 @@ body.sitrus-coordinator-dashboard .tab-pane {
 /* サイドバー */
 body.sitrus-coordinator-dashboard .sidebar-sticky {
     top: 50px;
-    position: fixed;
-    width: 17%;
     height: 90%;
 
     background: rgba(0, 0, 0, 0.7) !important;
