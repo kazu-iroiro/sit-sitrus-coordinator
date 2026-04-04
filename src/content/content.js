@@ -243,10 +243,36 @@ class SitrusCoordinator {
         this.hideLoadingScreen();
         this.reconstructTimetableLayout();
 
-        const observer = new MutationObserver(() => {
-            this.hideEmptyJumbotrons();
+        this.setupJumbotronObserver();
+    }
+
+    /**
+     * jumbotron 監視用 MutationObserver をセットアップ
+     */
+    setupJumbotronObserver() {
+        const mainContainer = document.querySelector('[class^="_navbar_fixed_top_slide"]')?.querySelector('.container');
+        const targetElement = mainContainer || document.body;
+
+        let observer = null;
+        let hasProcessed = false;
+
+        observer = new MutationObserver(() => {
+            if (!hasProcessed) {
+                this.hideEmptyJumbotrons();
+                hasProcessed = true;
+                observer.disconnect();
+                console.log('SITRUS Coordinator: jumbotron の処理が完了したため MutationObserver を停止しました。');
+            }
         });
-        observer.observe(document.body, { childList: true, subtree: true });
+
+        observer.observe(targetElement, { childList: true, subtree: true });
+
+        // ページ離脱時にdisconnect()
+        window.addEventListener('beforeunload', () => {
+            if (observer) {
+                observer.disconnect();
+            }
+        }, { once: true });
     }
 
     /* =========================================================
