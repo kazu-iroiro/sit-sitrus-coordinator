@@ -333,6 +333,8 @@ class SitrusCoordinator {
         const zengakuBtn = document.getElementById('zengaku');
 
         if (jisyozokuBtn && zengakuBtn) {
+            const btnOldWrapper = jisyozokuBtn.closest('a#hicyusen_kikan3');
+
             const btnGroup = document.createElement('div');
             btnGroup.className = 'sc-btn-group';
 
@@ -343,7 +345,6 @@ class SitrusCoordinator {
             btnGroup.appendChild(zengakuBtn);
             controlsDiv.appendChild(btnGroup);
 
-            const btnOldWrapper = jisyozokuBtn.closest('a#hicyusen_kikan3');
             if (btnOldWrapper) {
                 btnOldWrapper.style.display = 'none';
             }
