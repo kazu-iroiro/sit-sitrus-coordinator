@@ -63,10 +63,14 @@ class SitrusCoordinator {
             });
 
             if (cssText.trim().length > 0) {
-                const styleTag = document.createElement('style');
-                styleTag.id = 'sitrus-filtered-style';
+                // 既存要素を取得、なければ新規作成
+                let styleTag = document.getElementById('sitrus-filtered-style');
+                if (!styleTag) {
+                    styleTag = document.createElement('style');
+                    styleTag.id = 'sitrus-filtered-style';
+                    document.head.appendChild(styleTag);
+                }
                 styleTag.textContent = cssText;
-                document.head.appendChild(styleTag);
                 console.log('SITRUS Coordinator: 未知のスタイルを適用しました。');
             }
         } catch (error) {
