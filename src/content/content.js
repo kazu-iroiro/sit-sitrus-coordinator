@@ -80,6 +80,7 @@ class SitrusCoordinator {
 
     blockSitrusCss() {
         const processedUrls = new Set();
+        let observer = null;
 
         const handleLink = (node) => {
             if (node.nodeType === 1 && node.tagName === 'LINK' && node.href && node.href.includes('sitrus.css')) {
@@ -100,24 +101,26 @@ class SitrusCoordinator {
         document.querySelectorAll('link[href*="sitrus.css"]').forEach(handleLink);
 
         // 新規追加されるリンクを監視
-        const observer = new MutationObserver((mutations) => {
-            mutations.forEach((mutation) => {
-                mutation.addedNodes.forEach(node => {
-                    if (node.nodeType === 1) {
-                        if (node.tagName === 'LINK') {
-                            handleLink(node);
-                        } else {
-                            node.querySelectorAll?.('link[href*="sitrus.css"]').forEach(handleLink);
-                        }
+        observer = new MutationObserver((mutations) => {
+            for (const mutation of mutations) {
+                for (const node of mutation.addedNodes) {
+                    if (node.nodeType === 1 && node.tagName === 'LINK') {
+                        handleLink(node);
                     }
-                });
-            });
+                }
+            }
         });
 
-        observer.observe(document.documentElement, {
-            childList: true,
-            subtree: true
+        // head のみ監視、オプションを最小化
+        observer.observe(document.head, {
+            childList: true
         });
+
+        // 20秒経ったらdisconnect
+        setTimeout(() => {
+            observer?.disconnect();
+            console.log('SITRUS Coordinator: blockSitrusCss の監視を終了しました。');
+        }, 20000);
     }
 
     /* =========================================================
