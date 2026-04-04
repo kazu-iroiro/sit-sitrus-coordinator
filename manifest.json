@@ -15,7 +15,7 @@
       ],
       "css": ["src/content/content.css"],
       "js": ["src/content/content.js"],
-      "run_at": "document_end"
+      "run_at": "document_start"
     }
   ],
   "web_accessible_resources": [
