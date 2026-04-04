@@ -263,7 +263,6 @@ body.sitrus-coordinator-dashboard .sidebar-sticky {
 
     padding-top: 2svh;
     padding-right: clamp(8px, 1svw, 10px);
-    padding-bottom: clamp(-15px, -2.5svh, -25px);
     padding-left: clamp(8px, 1svw, 10px);
 
     margin-left: clamp(-3px, -0.5svw, -5px) !important;
