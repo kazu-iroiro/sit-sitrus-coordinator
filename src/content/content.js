@@ -256,6 +256,9 @@ class SitrusCoordinator {
         let observer = null;
         let hasProcessed = false;
 
+        // 初期状態で存在する .jumbotron を処理
+        this.hideEmptyJumbotrons();
+
         observer = new MutationObserver(() => {
             if (!hasProcessed) {
                 this.hideEmptyJumbotrons();
