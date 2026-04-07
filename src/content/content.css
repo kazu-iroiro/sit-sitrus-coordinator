@@ -1,6 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=BIZ+UDP+Gothic&display=swap');
 
 /* ==========================================================================
+   CSS Variables
+   ========================================================================== */
+:root {
+    --sit-green: rgb(34, 77, 61);
+    --border-color: #ddd;
+    --bg-light: #f9f9f9;
+    --text-muted: #999;
+    --text-main: #333;
+    --card-bg: #ffffff;
+}
+
+/* ==========================================================================
    Login Page
    ========================================================================== */
 
@@ -240,18 +252,22 @@ body.sitrus-coordinator-dashboard .tab-pane {
 
 /* サイドバー */
 body.sitrus-coordinator-dashboard .sidebar-sticky {
+    top: 50px;
+    height: 90%;
+
     background: rgba(0, 0, 0, 0.7) !important;
     backdrop-filter: blur(10px);
     border-radius: clamp(12px, 2svw, 16px) !important;
 
-    padding: clamp(-15px, -2.5svh, -25px) clamp(8px, 1svw, 10px) clamp(-15px, -2.5svh, -25px) !important;
+    padding-top: 2svh;
+    padding-right: clamp(8px, 1svw, 10px);
+    padding-left: clamp(8px, 1svw, 10px);
 
     margin-left: clamp(-3px, -0.5svw, -5px) !important;
     margin-top: clamp(3px, 0.5svh, 5px) !important;
     box-shadow: 0 clamp(4px, 0.8svw, 8px) clamp(20px, 3svw, 32px) rgba(0, 0, 0, 0.3);
-    height: auto !important;
     max-height: 96svh !important;
-    overflow-y: hidden !important;
+    overflow: auto !important;
 }
 
 /* タブレイアウト */
@@ -260,8 +276,8 @@ body.sitrus-coordinator-dashboard .nav-tabs {
     flex-wrap: nowrap !important;
     justify-content: space-around;
     border-bottom: max(1px, 0.1svw) solid rgba(255, 255, 255, 0.2) !important;
-    margin-top: 0 !important;
-    margin-bottom: clamp(8px, 1.2svh, 12px) !important;
+    /* margin-top: 0 !important; */
+    /* margin-bottom: clamp(8px, 1.2svh, 12px) !important; */
     padding: 0 !important;
 }
 
@@ -269,6 +285,7 @@ body.sitrus-coordinator-dashboard .nav-tabs {
 body.sitrus-coordinator-dashboard .nav {
     margin-top: 0 !important;
     padding-top: 0 !important;
+    margin-bottom: 4svh !important;
 }
 
 /* 非アクティブタブ */
@@ -308,8 +325,7 @@ body.sitrus-coordinator-dashboard .tab-pane a.button_list {
     color: white !important;
     padding: clamp(8px, 1svh, 10px) clamp(12px, 1.5svw, 15px) !important;
 
-    margin-top: clamp(1px, 0.2svh, 2px) !important;
-    margin-bottom: clamp(4px, 0.6svh, 6px) !important;
+    margin-top: clamp(4px, 5svh, 25px) !important;
 
     font-size: 0.95rem !important;
     font-weight: normal;
@@ -348,6 +364,10 @@ body.sitrus-coordinator-dashboard .tab-content {
     margin-top: 0 !important;
 }
 
+body.sitrus-coordinator-dashboard #portfolio_msg {
+    color: #ffffff !important;
+}
+
 /* ==========================================================================
    Loading Screen
    ========================================================================== */
@@ -359,7 +379,7 @@ body.sitrus-coordinator-dashboard .tab-content {
     left: 0 !important;
     width: 100% !important;
     height: 100% !important;
-    background: linear-gradient(135deg, rgba(74, 111, 165, 0.85) 0%, rgba(58, 87, 149, 0.85) 100%) !important;
+    background: linear-gradient(135deg, rgba(74, 111, 165, 0.65) 0%, rgba(58, 87, 149, 0.65) 100%) !important;
     backdrop-filter: blur(8px);
     z-index: 9999 !important;
     justify-content: center !important;
@@ -588,7 +608,6 @@ body.sitrus-coordinator-dashboard [class^="_navbar_fixed_top_slide"] .container 
     overflow-y: auto !important;
 }
 
-/* 中の箱(Jumbotron) */
 body.sitrus-coordinator-dashboard .jumbotron {
     background: transparent !important;
     box-shadow: none !important;
@@ -596,6 +615,26 @@ body.sitrus-coordinator-dashboard .jumbotron {
     border-radius: clamp(9px, 1.2svw, 12px) !important;
     padding: clamp(15px, 2svh, 20px) clamp(18px, 2.5svw, 25px) !important;
     margin-bottom: clamp(15px, 2svh, 20px) !important;
+
+    max-height: 800px;
+    opacity: 1;
+    overflow: hidden;
+    transition: max-height 0.4s ease, opacity 0.3s ease, padding 0.4s ease, margin 0.4s ease, border-width 0.4s ease !important;
+
+    flex-shrink: 0 !important;
+    height: auto !important;
+    min-height: min-content !important;
+}
+
+/* jumbotron非表示時のスタイル */
+body.sitrus-coordinator-dashboard .jumbotron.sc-jumbotron-hidden {
+    max-height: 0 !important;
+    min-height: 0 !important;
+    opacity: 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+    border-width: 0 !important;
 }
 
 /* タイトル装飾 */
@@ -620,7 +659,7 @@ body.sitrus-coordinator-dashboard #Subjects_scheduled_to_acquired {
     border-radius: 0 clamp(9px, 1.2svw, 12px) clamp(9px, 1.2svw, 12px) 0 !important;
 }
 
-/* ag-Grid (取得予定リスト) の調整 */
+/* ag-Gridの調整 */
 body.sitrus-coordinator-dashboard .ag-theme-balham {
     border-radius: clamp(6px, 0.8svw, 8px) !important;
     overflow: hidden !important;
@@ -648,6 +687,44 @@ body.sitrus-coordinator-dashboard .ag-header-cell {
     border-right: max(1px, 0.1svw) solid rgba(0, 0, 0, 0.05) !important;
 }
 
+/* ==========================================================================
+   Main Content Layout - Navbar Fixed Top Positioning
+   ========================================================================== */
+
+/* メインコンテンツエリアをナビゲーションバー下に配置 */
+body.sitrus-coordinator-dashboard ._navbar_fixed_top_slide {
+    top: 50px;
+    position: fixed;
+    width: 82%;
+    height: 90%;
+    box-shadow: 0px 0px 10px 10px rgba(0, 0, 0, 0.45), 10px 10px 10px 0px rgba(0, 0, 0, 0.45);
+    overflow: auto !important;
+    overflow-x: auto !important;
+    white-space: nowrap !important;
+}
+
+/* スライド1レイアウト（60%幅） */
+body.sitrus-coordinator-dashboard ._navbar_fixed_top_slide1 {
+    top: 50px;
+    position: fixed;
+    width: 60%;
+    height: 90%;
+    box-shadow: 0px 0px 10px 10px rgba(0, 0, 0, 0.45), 10px 10px 10px 0px rgba(0, 0, 0, 0.45);
+    overflow: auto !important;
+}
+
+/* スライド2レイアウト（21%幅、右寄せ） */
+body.sitrus-coordinator-dashboard ._navbar_fixed_top_slide2 {
+    top: 50px;
+    position: fixed;
+    width: 21%;
+    height: 90%;
+    box-shadow: 0px 0px 10px 10px rgba(0, 0, 0, 0.45), 10px 10px 10px 0px rgba(0, 0, 0, 0.45);
+    /* overflow: auto !important; */
+    overflow-y: scroll !important;
+    right: 0.5% !important;
+}
+
 
 /* テーブルヘッダー */
 body.sitrus-coordinator-dashboard table thead th {
@@ -663,4 +740,390 @@ body.sitrus-coordinator-dashboard table thead th {
 body.sitrus-coordinator-dashboard table td,
 body.sitrus-coordinator-dashboard table th {
     border-color: rgba(0, 0, 0, 0.03) !important;
+}
+
+
+
+/* ==========================================================================
+   Timetable Custom UI (Header & Tabs & Iframe)
+   ========================================================================== */
+
+/* ヘッダー */
+.sc-main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 12px;
+    margin-bottom: 20px;
+    flex-shrink: 0;
+}
+
+.sc-header-title h3 {
+    margin: 0 !important;
+    font-size: clamp(1.2rem, 1.5svw, 1.5rem) !important;
+    color: var(--sit-green) !important;
+    font-weight: bold !important;
+    display: flex;
+    align-items: center;
+}
+
+.sc-header-controls {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* タブボタングループ (自所属 / 全学) */
+.sc-btn-group {
+    display: flex;
+    background: var(--bg-light);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 4px;
+    gap: 4px;
+}
+
+/* SITRUSのボタンスタイルを上書き */
+body.sitrus-coordinator-dashboard .sc-main-header .sc-tab-btn {
+    appearance: none !important;
+    background: transparent !important;
+    border: none !important;
+    color: var(--text-muted) !important;
+    font-weight: bold !important;
+    font-size: 0.9rem !important;
+    padding: 6px 16px !important;
+    border-radius: 6px !important;
+    cursor: pointer !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+    transition: all 0.2s ease !important;
+}
+
+body.sitrus-coordinator-dashboard .sc-main-header .sc-tab-btn:hover {
+    background: rgba(0, 0, 0, 0.05) !important;
+}
+
+/* アクティブなタブ */
+body.sitrus-coordinator-dashboard .sc-main-header .sc-tab-btn.sc-active,
+body.sitrus-coordinator-dashboard .sc-main-header .sc-tab-btn[style*="yellow"] {
+    background: var(--card-bg) !important;
+    color: var(--sit-green) !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08) !important;
+}
+
+/* 説明文の開閉(最小化)ボタン */
+.sc-toggle-info-btn {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    color: var(--text-muted);
+    padding: 6px 12px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+}
+
+.sc-toggle-info-btn:hover {
+    background: var(--bg-light);
+    color: var(--text-main);
+}
+
+
+
+/* ==========================================================================
+   Dashboard Layout
+   ========================================================================== */
+
+body.sitrus-coordinator-dashboard .container-fluid {
+    padding: 0 !important;
+    margin-top: 50px !important;
+    /* height: calc(100vh - 50px) !important; */
+    width: 100% !important;
+    overflow: hidden !important;
+}
+
+body.sitrus-coordinator-dashboard .row {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    margin: 0 !important;
+    height: calc(100vh - 50px) !important;
+    width: 100% !important;
+
+    /* 上下左右の余白 ＆ 要素間の隙間 */
+    padding: clamp(10px, 1.5svh, 15px) clamp(15px, 2svw, 25px) !important;
+    gap: clamp(12px, 1.5svw, 20px) !important;
+    box-sizing: border-box !important;
+}
+
+/* ==========================================================================
+   Column Controls
+   ========================================================================== */
+
+/* 左：サイドバーメニュー (幅固定) */
+body.sitrus-coordinator-dashboard nav.sidebar:not(:has(._navbar_fixed_top_slide2)) {
+    flex: 0 0 clamp(200px, 18svw, 250px) !important;
+    max-width: clamp(200px, 18svw, 250px) !important;
+    height: 100% !important;
+    padding: 0 !important;
+}
+
+/* 中：メインコンテンツ */
+body.sitrus-coordinator-dashboard main {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    height: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+/* 右：取得予定単位数サイドバー */
+body.sitrus-coordinator-dashboard nav:has(._navbar_fixed_top_slide2) {
+    flex: 0 0 clamp(280px, 25svw, 350px) !important;
+    max-width: clamp(280px, 25svw, 350px) !important;
+    height: 100% !important;
+    padding: 0 !important;
+}
+
+/* ==========================================================================
+   Content UI Styling
+   ========================================================================== */
+
+body.sitrus-coordinator-dashboard .sidebar-sticky,
+body.sitrus-coordinator-dashboard [class^="_navbar_fixed_top_slide"] {
+    position: relative !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    margin: 0 !important;
+    box-shadow: 0 clamp(4px, 0.8svw, 8px) clamp(20px, 3svw, 32px) rgba(0, 0, 0, 0.1) !important;
+    border-radius: clamp(12px, 2svw, 16px) !important;
+    background: rgba(255, 255, 255, 0.95) !important;
+    backdrop-filter: blur(10px) !important;
+    box-sizing: border-box !important;
+    overflow-y: auto !important;
+}
+
+body.sitrus-coordinator-dashboard .sidebar-sticky {
+    background: rgba(0, 0, 0, 0.7) !important;
+    color: white !important;
+}
+
+body.sitrus-coordinator-dashboard [class^="_navbar_fixed_top_slide"] .container {
+    width: 100% !important;
+    max-width: none !important;
+    padding: clamp(15px, 2svh, 25px) !important;
+    margin: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+}
+
+/* ==========================================================================
+   Timetable & History Grid Area
+   ========================================================================== */
+
+body.sitrus-coordinator-dashboard a#hicyusen_kikan2 {
+    display: block !important;
+    width: 100% !important;
+    text-decoration: none !important;
+    color: inherit !important;
+}
+
+body.sitrus-coordinator-dashboard [class^="_navbar_fixed_top_slide"] .form-row:has(.form-row),
+body.sitrus-coordinator-dashboard [class^="_navbar_fixed_top_slide"] .form-row:has(#itiran_list, #r_list, #ji_list),
+body.sitrus-coordinator-dashboard [class^="_navbar_fixed_top_slide"] .col-sm:has(#itiran_list, #r_list, #ji_list) {
+    display: block !important;
+    width: 100% !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+body.sitrus-coordinator-dashboard #itiran_list,
+body.sitrus-coordinator-dashboard #r_list,
+body.sitrus-coordinator-dashboard #ji_list,
+body.sitrus-coordinator-dashboard #j_list,
+body.sitrus-coordinator-dashboard #sk_list,
+body.sitrus-coordinator-dashboard .ag-theme-balham:not(.ag-popup) {
+    width: 100% !important;
+
+    background: rgba(255, 255, 255, 0.95) !important;
+    backdrop-filter: blur(10px) !important;
+    border: none !important;
+    border-radius: clamp(12px, 2svw, 16px) !important;
+    box-shadow: 0 clamp(4px, 0.8svw, 8px) clamp(20px, 3svw, 32px) rgba(0, 0, 0, 0.1) !important;
+    overflow: visible !important;
+}
+
+/* ==========================================================================
+   Credit Table Styling
+   ========================================================================== */
+
+#yt_list {
+    font-size: 0.85rem !important;
+    width: 100% !important;
+}
+
+#yt_list th,
+#yt_list td {
+    padding: 4px 8px !important;
+    white-space: normal !important;
+}
+
+
+
+/* ==========================================================================
+   DataTables (事前準備リスト等) のレイアウト崩れ修正
+   ========================================================================== */
+
+body.sitrus-coordinator-dashboard a#hicyusen_kikan2 {
+    display: block !important;
+    width: 100% !important;
+    text-decoration: none !important;
+    cursor: default !important;
+}
+
+/* ==========================================================================
+   履修申請画面 - 単位取得状況サイドバーの幅調整
+   ========================================================================== */
+
+body.sitrus-coordinator-dashboard a#hicyusen_kikan nav {
+    flex: 0 0 40svw !important;
+    max-width: 40svw !important;
+}
+
+body.sitrus-coordinator-dashboard .dataTables_wrapper .row {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    height: auto !important;
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    gap: 0 !important;
+}
+
+body.sitrus-coordinator-dashboard .dataTables_wrapper .col-sm-12 {
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    padding: 0 !important;
+}
+
+/* #ji_list などの DataTables 本体 */
+body.sitrus-coordinator-dashboard #ji_list,
+body.sitrus-coordinator-dashboard #s_list {
+    display: table !important;
+    width: 100% !important;
+    background: rgba(255, 255, 255, 0.95) !important;
+    backdrop-filter: blur(10px) !important;
+    border: none !important;
+    border-radius: clamp(12px, 2svw, 16px) !important;
+    box-shadow: 0 clamp(4px, 0.8svw, 8px) clamp(20px, 3svw, 32px) rgba(0, 0, 0, 0.1) !important;
+    margin-top: 10px !important;
+    overflow-y: visible !important;
+}
+
+body.sitrus-coordinator-dashboard #ji_list thead th {
+    background-color: #f1f5f9 !important;
+    color: #4a6fa5 !important;
+    border-bottom: 2px solid #4a6fa5 !important;
+    font-weight: bold !important;
+    padding: 10px !important;
+}
+
+body.sitrus-coordinator-dashboard #ji_list td {
+    padding: 10px !important;
+    vertical-align: middle !important;
+}
+
+
+
+/* ==========================================================================
+   ag-Grid 無限ループ対策 ＆ 空白除去
+   ========================================================================== */
+
+body.sitrus-coordinator-dashboard [class^="_navbar_fixed_top_slide"] {
+    display: flex !important;
+    flex-direction: column !important;
+    height: 100% !important;
+}
+
+body.sitrus-coordinator-dashboard [class^="_navbar_fixed_top_slide"] .container {
+    display: flex !important;
+    flex-direction: column !important;
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    height: 100% !important;
+}
+
+/* 時間割一覧専用のレイアウト */
+body.sitrus-coordinator-dashboard.page-timetable [class^="_navbar_fixed_top_slide"] .container {
+    overflow: hidden !important;
+}
+
+/* ヘッダー・説明文(Jumbotron)が潰れないように保護 */
+body.sitrus-coordinator-dashboard.page-timetable .sc-main-header,
+body.sitrus-coordinator-dashboard.page-timetable .jumbotron {
+    flex-shrink: 0 !important;
+}
+
+/* 表を囲む親要素をすべて縦Flex化 (時間割一覧専用) */
+body.sitrus-coordinator-dashboard.page-timetable [class^="_navbar_fixed_top_slide"] .container *:has(> #itiran_list),
+body.sitrus-coordinator-dashboard.page-timetable [class^="_navbar_fixed_top_slide"] .container *:has(> * > #itiran_list) {
+    display: flex !important;
+    flex-direction: column !important;
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* ag-Grid本体の指定 (時間割一覧専用) */
+body.sitrus-coordinator-dashboard.page-timetable #itiran_list {
+    flex: 1 1 auto !important;
+    height: 100% !important;
+    min-height: 0 !important;
+    width: 100% !important;
+
+    margin-top: clamp(10px, 1.5svh, 15px) !important;
+
+    /* 既存のデザイン指定引き継ぎ */
+    background: rgba(255, 255, 255, 0.95) !important;
+    backdrop-filter: blur(10px) !important;
+    border: none !important;
+    border-radius: clamp(12px, 2svw, 16px) !important;
+    box-shadow: 0 clamp(4px, 0.8svw, 8px) clamp(20px, 3svw, 32px) rgba(0, 0, 0, 0.1) !important;
+    overflow: hidden !important;
+}
+
+/* sitrus.cssの引継ぎ */
+.jik_kakunin_header {
+    position: sticky;
+    top: 0;
+    background: #fff;
+    border-bottom: 1px solid #dee2e6;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.modal-body1 {
+    max-height: calc(49vh - 50px);
+    overflow-y: auto;
+    cursor: not-allowed !important;
+}
+
+.jik_kakunin_body {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    cursor: not-allowed !important;
 }
