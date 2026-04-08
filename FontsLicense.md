@@ -1,4 +1,4 @@
-# License of BIZ UDP Gothic
+# License of BIZ UDPGothic
 
 Copyright 2022 The BIZ UDGothic Project Authors (https://github.com/googlefonts/morisawa-biz-ud-mincho)
 This Font Software is licensed under the SIL Open Font License, Version 1.1 . This license is copied below, and is also available with a FAQ at: https://openfontlicense.org

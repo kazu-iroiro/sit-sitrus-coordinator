@@ -48,9 +48,9 @@
 
 このリポジトリに含まれるプログラムおよび画像の著作権は、開発者である kazu_iroiro に帰属します。
 
-拡張機能実行時にGoogle Fonts経由でダウンロードされるフォント『BIZ UDP Gothic』は、『SIL OPEN FONT LICENSE Version 1.1』に基づき利用しています。
+拡張機能実行時にGoogle Fonts経由でダウンロードされるフォント『BIZ UDPGothic』は、『SIL OPEN FONT LICENSE Version 1.1』に基づき利用しています。
 
-『SIL OPEN FONT LICENSE Version 1.1』および『BIZ UDP Gothic』のライセンス表記は、本リポジトリ内の[FontsLicense.md](/FontsLicense.md)に記載しています。
+『SIL OPEN FONT LICENSE Version 1.1』および『BIZ UDPGothic』のライセンス表記は、本リポジトリ内の[FontsLicense.md](/FontsLicense.md)に記載しています。
 
 ## 改変および再配布
 
