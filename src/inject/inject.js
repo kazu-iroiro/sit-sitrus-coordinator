@@ -52,7 +52,7 @@
                 // 全グリッドの列表示を更新
                 if (gridInstances.length > 0) {
                     gridInstances.forEach(gridApi => {
-                        gridApi.setColumnVisible('teiin_zansu_display', showTeiinColumn);
+                        gridApi.setColumnsVisible(['teiin_zansu_display'], showTeiinColumn);
                     });
                     console.log("定員列の表示/非表示を切り替え:", showTeiinColumn);
                 }
@@ -158,13 +158,13 @@
             if (gridApi.addEventListener) {
                 gridApi.addEventListener('gridReady', function() {
                     if (!showTeiinColumn) {
-                        gridApi.setColumnVisible('teiin_zansu_display', false);
+                        gridApi.setColumnsVisible(['teiin_zansu_display'], false);
                     }
                 });
             } else {
                 setTimeout(() => {
                     if (!showTeiinColumn) {
-                        gridApi.setColumnVisible('teiin_zansu_display', false);
+                        gridApi.setColumnsVisible(['teiin_zansu_display'], false);
                     }
                 }, 100);
             }
