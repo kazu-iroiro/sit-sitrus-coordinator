@@ -211,7 +211,7 @@ class SitrusCoordinator {
         // --- バージョン表記 ---
         const versionText = document.createElement('div');
         versionText.id = 'sc-version-text';
-        versionText.textContent = 'SITRUS Coordinator - v1.0.1';
+        versionText.textContent = 'SITRUS Coordinator - v1.0.2';
         document.body.appendChild(versionText);
 
         // --- 教職員向けトグルボタンとフォームの再配置 ---

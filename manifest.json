@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "SITRUS Coordinator",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "履修登録システムのUIを改善し、より使いやすくするChrome拡張機能です。",
   "icons": {
     "16": "assets/icons/icon16.png",
