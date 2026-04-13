@@ -1132,18 +1132,15 @@ body.sitrus-coordinator-dashboard.page-timetable #itiran_list {
    定員(残)表示チェックボックス
    ========================================================================== */
 
-/* フォームラベルのテキスト折り返しを防止 */
-.col-form-label {
-    white-space: nowrap !important;
-}
-
 /* チェックボックスのスタイル */
 #teiin_display {
     cursor: pointer;
     margin-right: 8px;
 }
 
+/* チェックボックスラベルのスタイル */
 #teiin_display + label {
     cursor: pointer;
     margin-bottom: 0;
+    white-space: nowrap;
 }
