@@ -273,10 +273,16 @@ class SitrusCoordinator {
         const akikomaRow = document.querySelector('div.form-row#akikoma_top');
         if (!akikomaRow) return;
         
-        // akikoma_row内の空のラベル要素を削除
+        // akikoma_row内の空のラベル要素のみを削除
         const emptyLabel = akikomaRow.querySelector('label[for="title_ja"]');
         if (emptyLabel) {
-            emptyLabel.remove();
+            const hasTextContent = emptyLabel.textContent.trim().length > 0;
+            const hasChildElements = emptyLabel.children.length > 0;
+            const hasRelevantClasses = emptyLabel.classList.length > 0;
+
+            if (!hasTextContent && !hasChildElements && !hasRelevantClasses) {
+                emptyLabel.remove();
+            }
         }
         
         const showTeiinColumn = localStorage.getItem('showTeiinColumn') !== 'false';
