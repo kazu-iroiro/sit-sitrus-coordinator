@@ -271,18 +271,25 @@ class SitrusCoordinator {
     addTeiinCheckbox() {
         // 空きコマのform-rowを見つける
         const akikomaRow = document.querySelector('div.form-row#akikoma_top');
-        if (!akikomaRow) return;
+        if (!akikomaRow) {
+            console.warn('SITRUS Coordinator: akikoma_top が見つかりません。');
+            return;
+        }
         
         // akikoma_row内の空のラベル要素のみを削除
         const emptyLabel = akikomaRow.querySelector('label[for="title_ja"]');
+        console.log('SITRUS Coordinator: emptyLabel:', emptyLabel);
+        
         if (emptyLabel) {
             const hasTextContent = emptyLabel.textContent.trim().length > 0;
             const hasChildElements = emptyLabel.children.length > 0;
-            const hasRelevantClasses = emptyLabel.classList.length > 0;
 
-            if (!hasTextContent && !hasChildElements && !hasRelevantClasses) {
+            // テキストと子要素がなければ削除
+            if (!hasTextContent && !hasChildElements) {
                 emptyLabel.remove();
             }
+        } else {
+            console.log('SITRUS Coordinator: label[for="title_ja"] が見つかりません。');
         }
         
         const showTeiinColumn = localStorage.getItem('showTeiinColumn') !== 'false';
@@ -298,6 +305,11 @@ class SitrusCoordinator {
         if (checkbox) {
             checkbox.addEventListener('change', function() {
                 localStorage.setItem('showTeiinColumn', this.checked);
+                // inject.jsに通知
+                window.postMessage({
+                    type: 'SC_TEIIN_TOGGLE',
+                    checked: this.checked
+                }, '*');
                 console.log("定員列の表示切り替え:", this.checked);
                 location.reload();
             });

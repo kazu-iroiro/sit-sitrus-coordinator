@@ -39,22 +39,25 @@
     }, 100);
 
     function setupStorageListener() {
-        // 定期的にlocalStorageをチェック（500ms毎）
-        setInterval(() => {
-            const currentValue = localStorage.getItem('showTeiinColumn') !== 'false';
-            if (currentValue !== showTeiinColumn) {
-                showTeiinColumn = currentValue;
-                // 全グリッドの列表示を更新
-                gridInstances.forEach(gridApi => {
-                    if (showTeiinColumn) {
-                        gridApi.setColumnVisible('teiin_zansu_display', true);
-                    } else {
-                        gridApi.setColumnVisible('teiin_zansu_display', false);
-                    }
-                });
-                console.log("定員列の表示/非表示を切り替え:", showTeiinColumn);
+        // window.postMessage でコンテンツスクリプトからの通知をリッスン
+        window.addEventListener('message', (event) => {
+            // 通知ソースは自分のウィンドウかつ、コンテンツスクリプトからの通知であることを確認
+            if (event.source !== window || event.data.type !== 'SC_TEIIN_TOGGLE') {
+                return;
             }
-        }, 500);
+            
+            const newValue = event.data.checked;
+            if (newValue !== showTeiinColumn) {
+                showTeiinColumn = newValue;
+                // 全グリッドの列表示を更新
+                if (gridInstances.length > 0) {
+                    gridInstances.forEach(gridApi => {
+                        gridApi.setColumnVisible('teiin_zansu_display', showTeiinColumn);
+                    });
+                    console.log("定員列の表示/非表示を切り替え:", showTeiinColumn);
+                }
+            }
+        });
     }
 
     function hookAgGrid() {
