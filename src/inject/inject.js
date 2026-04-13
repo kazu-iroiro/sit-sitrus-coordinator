@@ -90,21 +90,43 @@
                             return (params.data && params.data.teiin !== null) ? params.data.teiin : null;
                         },
                         cellRenderer: function(params) {
-                            if (!params.data || params.data.teiin == null) return '<span style="color: #999;">-</span>';
+                            const container = document.createElement('span');
                             
-                            let teiin = params.data.teiin;
-                            let zansu = params.data.teiin_zansu;
-                            
-                            // 残数が存在しない場合は括弧を表示しない
-                            if (zansu == null || zansu === undefined) {
-                                return `<span>${teiin}</span>`;
+                            if (!params.data || params.data.teiin == null) {
+                                container.style.color = '#999';
+                                container.textContent = '-';
+                                return container;
                             }
                             
-                            // 残数に応じて色を切り替え
-                            // let color = zansu <= 0 ? '#e74c3c' : (zansu < 10 ? '#f39c12' : '#27ae60');
-                            let color = '#000';
+                            // teiin を数値に強制
+                            const teiin = Number(params.data.teiin);
+                            if (isNaN(teiin)) {
+                                container.style.color = '#999';
+                                container.textContent = '-';
+                                return container;
+                            }
                             
-                            return `<span>${teiin}</span> (<span style="color: ${color}; font-weight: bold;">${zansu}</span>)`;
+                            const teiinSpan = document.createElement('span');
+                            teiinSpan.textContent = String(teiin);
+                            container.appendChild(teiinSpan);
+                            
+                            // zansu を数値に強制
+                            const zansu = Number(params.data.teiin_zansu);
+                            
+                            // 残数が有効な数値の場合のみ括弧を表示
+                            if (!isNaN(zansu) && zansu != null) {
+                                container.appendChild(document.createTextNode(' ('));
+                                
+                                const zansuSpan = document.createElement('span');
+                                zansuSpan.style.color = '#000';
+                                zansuSpan.style.fontWeight = 'bold';
+                                zansuSpan.textContent = String(zansu);
+                                container.appendChild(zansuSpan);
+                                
+                                container.appendChild(document.createTextNode(')'));
+                            }
+                            
+                            return container;
                         }
                     };
                     

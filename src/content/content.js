@@ -10,9 +10,6 @@ class SitrusCoordinator {
     init() {
         console.log('SITRUS Coordinator: 起動しました。');
 
-        // ag-Gridをフックする
-        this.injectPageScript();
-
         // sitrus.cssの読み込みをブロック
         this.blockSitrusCss();
 
@@ -257,6 +254,9 @@ class SitrusCoordinator {
        ダッシュボード（サイドバー）用の処理
        ========================================================= */
     initDashboard() {
+        // ag-Gridをフック
+        this.injectPageScript();
+
         document.body.classList.add('sitrus-coordinator-dashboard');
         this.hideLoadingScreen();
         this.reconstructTimetableLayout();
