@@ -10,6 +10,9 @@ class SitrusCoordinator {
     init() {
         console.log('SITRUS Coordinator: 起動しました。');
 
+        // ag-Gridをフックする
+        this.injectPageScript();
+
         // sitrus.cssの読み込みをブロック
         this.blockSitrusCss();
 
@@ -25,6 +28,21 @@ class SitrusCoordinator {
             console.log('ダッシュボード画面のUIを改善します。');
             this.initDashboard();
         }
+    }
+
+    /* =========================================================
+       ag-Gridのフックと定員列の追加処理
+       ========================================================= */
+    injectPageScript() {
+        const script = document.createElement('script');
+        script.src = chrome.runtime.getURL('src/inject/inject.js');
+        
+        script.onload = function() {
+            console.log("SITRUS Coordinator: inject.js の読み込みに成功しました！");
+            this.remove(); 
+        };
+        
+        (document.head || document.documentElement).appendChild(script);
     }
 
     /* =========================================================
@@ -242,8 +260,42 @@ class SitrusCoordinator {
         document.body.classList.add('sitrus-coordinator-dashboard');
         this.hideLoadingScreen();
         this.reconstructTimetableLayout();
+        this.addTeiinCheckbox();
 
         this.setupJumbotronObserver();
+    }
+
+    /* =========================================================
+       定員(残)表示チェックボックスの追加
+       ========================================================= */
+    addTeiinCheckbox() {
+        // 空きコマのform-rowを見つける
+        const akikomaRow = document.querySelector('div.form-row#akikoma_top');
+        if (!akikomaRow) return;
+        
+        // akikoma_row内の空のラベル要素を削除
+        const emptyLabel = akikomaRow.querySelector('label[for="title_ja"]');
+        if (emptyLabel) {
+            emptyLabel.remove();
+        }
+        
+        const showTeiinColumn = localStorage.getItem('showTeiinColumn') !== 'false';
+        
+        const teiinCol = document.createElement('div');
+        teiinCol.className = 'col-sm col-md';
+        teiinCol.innerHTML = `<input type="checkbox" id="teiin_display" ${showTeiinColumn ? 'checked' : ''}><label for="teiin_display" class="col-sm-1 col-md-7 col-form-label">定員(残)を表示する</label>`;
+        
+        // akikoma_rowに定員チェックボックスを追加
+        akikomaRow.appendChild(teiinCol);
+
+        const checkbox = document.getElementById('teiin_display');
+        if (checkbox) {
+            checkbox.addEventListener('change', function() {
+                localStorage.setItem('showTeiinColumn', this.checked);
+                console.log("定員列の表示切り替え:", this.checked);
+                location.reload();
+            });
+        }
     }
 
     /**

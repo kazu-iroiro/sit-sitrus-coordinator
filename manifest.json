@@ -22,7 +22,8 @@
     {
       "resources": [
         "assets/images/background.jpg",
-        "assets/images/logo.svg"
+        "assets/images/logo.svg",
+        "src/inject/inject.js"
       ],
       "matches": [
         "https://sitrus.sic.shibaura-it.ac.jp/*"
