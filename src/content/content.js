@@ -28,6 +28,21 @@ class SitrusCoordinator {
     }
 
     /* =========================================================
+       ag-Gridのフックと定員列の追加処理
+       ========================================================= */
+    injectPageScript() {
+        const script = document.createElement('script');
+        script.src = chrome.runtime.getURL('src/inject/inject.js');
+        
+        script.onload = function() {
+            console.log("SITRUS Coordinator: inject.js の読み込みに成功しました！");
+            this.remove(); 
+        };
+        
+        (document.head || document.documentElement).appendChild(script);
+    }
+
+    /* =========================================================
        sitrus.cssのフィルタリング適用処理
        ========================================================= */
     async filterAndApplySitrusCss(href) {
@@ -196,7 +211,7 @@ class SitrusCoordinator {
         // --- バージョン表記 ---
         const versionText = document.createElement('div');
         versionText.id = 'sc-version-text';
-        versionText.textContent = 'SITRUS Coordinator - v1.0.1';
+        versionText.textContent = 'SITRUS Coordinator - v1.0.2';
         document.body.appendChild(versionText);
 
         // --- 教職員向けトグルボタンとフォームの再配置 ---
@@ -239,11 +254,66 @@ class SitrusCoordinator {
        ダッシュボード（サイドバー）用の処理
        ========================================================= */
     initDashboard() {
+        // ag-Gridをフック
+        this.injectPageScript();
+
         document.body.classList.add('sitrus-coordinator-dashboard');
         this.hideLoadingScreen();
         this.reconstructTimetableLayout();
+        this.addTeiinCheckbox();
 
         this.setupJumbotronObserver();
+    }
+
+    /* =========================================================
+       定員(残)表示チェックボックスの追加
+       ========================================================= */
+    addTeiinCheckbox() {
+        // 空きコマのform-rowを見つける
+        const akikomaRow = document.querySelector('div.form-row#akikoma_top');
+        if (!akikomaRow) {
+            console.warn('SITRUS Coordinator: akikoma_top が見つかりません。');
+            return;
+        }
+        
+        // akikoma_row内の空のラベル要素のみを削除
+        const emptyLabel = akikomaRow.querySelector('label[for="title_ja"]');
+        console.log('SITRUS Coordinator: emptyLabel:', emptyLabel);
+        
+        if (emptyLabel) {
+            const hasTextContent = emptyLabel.textContent.trim().length > 0;
+            const hasChildElements = emptyLabel.children.length > 0;
+
+            // テキストと子要素がなければ削除
+            if (!hasTextContent && !hasChildElements) {
+                emptyLabel.remove();
+            }
+        } else {
+            console.log('SITRUS Coordinator: label[for="title_ja"] が見つかりません。');
+        }
+        
+        const showTeiinColumn = localStorage.getItem('showTeiinColumn') !== 'false';
+        
+        const teiinCol = document.createElement('div');
+        teiinCol.className = 'col-sm col-md';
+        teiinCol.innerHTML = `<input type="checkbox" id="teiin_display" ${showTeiinColumn ? 'checked' : ''}><label for="teiin_display" class="col-sm-1 col-md-7 col-form-label">定員(残)を表示する</label>`;
+        
+        // akikoma_rowに定員チェックボックスを追加
+        akikomaRow.appendChild(teiinCol);
+
+        const checkbox = document.getElementById('teiin_display');
+        if (checkbox) {
+            checkbox.addEventListener('change', function() {
+                localStorage.setItem('showTeiinColumn', this.checked);
+                // inject.jsに通知
+                window.postMessage({
+                    type: 'SC_TEIIN_TOGGLE',
+                    checked: this.checked
+                }, '*');
+                console.log("定員列の表示切り替え:", this.checked);
+                location.reload();
+            });
+        }
     }
 
     /**
