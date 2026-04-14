@@ -1139,6 +1139,7 @@ body.sitrus-coordinator-dashboard.page-timetable #itiran_list {
 }
 
 /* チェックボックスラベルのスタイル */
+input[type="checkbox"] + label.col-form-label,
 #teiin_display + label {
     cursor: pointer;
     margin-bottom: 0;
