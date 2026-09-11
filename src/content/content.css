@@ -1,33 +1,25 @@
 @import url('https://fonts.googleapis.com/css2?family=BIZ+UDP+Gothic&display=swap');
 
 /* ==========================================================================
-   CSS Variables
-   ========================================================================== */
-:root {
-    --sit-green: rgb(34, 77, 61);
-    --border-color: #ddd;
-    --bg-light: #f9f9f9;
-    --text-muted: #999;
-    --text-main: #333;
-    --card-bg: #ffffff;
-}
-
-/* ==========================================================================
    Login Page
    ========================================================================== */
 
 /* BIZ UDP Gothic を全体に適用 */
 body.sitrus-coordinator-active {
     font-family: 'BIZ UDP Gothic', sans-serif !important;
-
-    background-image: url('chrome-extension://__MSG_@@extension_id__/assets/images/background.jpg');
+    background-image: url('chrome-extension://__MSG_@@extension_id__/assets/images/background.jpg') !important;
     background-color: #4a6fa5 !important;
     background-size: cover !important;
     background-position: center bottom !important;
     background-repeat: no-repeat !important;
     height: 100vh !important;
-    margin: 0;
-    overflow: hidden;
+    margin: 0 !important;
+    overflow: hidden !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-end !important;
+    align-items: center !important;
+    padding-bottom: 16vh !important;
 }
 
 /* --- ロゴの配置 --- */
@@ -44,103 +36,33 @@ body.sitrus-coordinator-active {
     z-index: 10;
 }
 
-/* ログインページのレイアウト調整 */
-body.sitrus-coordinator-active .container {
-    height: 100% !important;
-    display: flex !important;
-    flex-direction: column;
-    justify-content: flex-end !important;
-    align-items: center !important;
-    padding-bottom: 16vh !important;
-}
-
-/* ログインボックスをリセット */
-body.sitrus-coordinator-active .login-box {
-    background-color: transparent !important;
-    border: none !important;
-    box-shadow: none !important;
-    width: 100%;
-    max-width: 400px;
-    padding: 0;
-}
-
-/* 入力フォーム */
-.hidden-form {
+/* 本来のロゴ・システム名を非表示にする */
+body.sitrus-coordinator-active .login-box .logo,
+body.sitrus-coordinator-active .system-name {
     display: none !important;
 }
 
+/* ガラスカードデザインを無効化 */
+body.sitrus-coordinator-active .login-box {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    width: 100% !important;
+    max-width: 400px !important;
+    padding: 0 !important;
+    margin: 0 auto !important;
+}
+
+/* 入力フォーム（教職員向けトグル内） */
 body.sitrus-coordinator-active .form-group {
-    background: rgba(0, 0, 0, 0.6);
-    padding: clamp(10px, 2svw, 15px);
-    border-radius: clamp(6px, 0.8svw, 8px);
-    margin-bottom: clamp(10px, 1.5svh, 15px);
-    color: white;
-    text-align: left;
-}
-
-body.sitrus-coordinator-active .form-group label {
-    font-size: 0.9rem;
-    margin-bottom: clamp(3px, 0.5svw, 5px);
-}
-
-/* ログインボタン */
-body.sitrus-coordinator-active #loginButton {
-    background-color: rgba(0, 0, 0, 0.4) !important;
-    border: clamp(2px, 0.3svw, 3px) solid white !important;
-    border-radius: clamp(8px, 1.2svw, 12px) !important;
+    background: rgba(0, 0, 0, 0.6) !important;
+    padding: clamp(10px, 2svw, 15px) !important;
+    border-radius: clamp(6px, 0.8svw, 8px) !important;
     color: white !important;
-    font-size: 1.8rem !important;
-    font-weight: bold;
-    letter-spacing: 0.2em;
-    padding: clamp(12px, 1.5svh, 15px) clamp(30px, 4svw, 40px) !important;
-    width: 100%;
-    transition: all 0.3s ease;
-}
-
-body.sitrus-coordinator-active #loginButton:hover {
-    background-color: rgba(255, 255, 255, 0.2) !important;
-    transform: scale(1.02);
-    cursor: pointer;
-}
-
-/* --- 教職員向けトグル --- */
-#sc-toggle-wrapper {
-    margin-top: clamp(10px, 1.5svh, 15px);
-    text-align: center;
-    position: relative;
-}
-
-#sc-faculty-toggle {
-    color: white;
-    font-size: 0.85rem;
-    cursor: pointer;
-    text-shadow: clamp(0.5px, 0.1svw, 1px) clamp(0.5px, 0.1svw, 1px) clamp(1px, 0.2svw, 2px) rgba(0, 0, 0, 0.8);
-    display: inline-flex;
-    align-items: center;
-    gap: clamp(4px, 0.6svw, 6px);
-    transition: opacity 0.2s;
-    user-select: none;
-}
-
-#sc-faculty-toggle:hover {
-    opacity: 0.7;
-}
-
-/* トグル矢印 */
-.sc-toggle-arrow {
-    display: inline-block;
-    transition: transform 0.3s ease;
-    font-family: monospace;
-    font-weight: bold;
-}
-
-#sc-faculty-toggle.is-open .sc-toggle-arrow {
-    transform: rotate(90deg);
-}
-
-
-/* フォーム表示/非表示 */
-body.sitrus-coordinator-active .form-group {
+    text-align: left !important;
+    
     position: absolute;
     top: 100%;
     left: 50%;
@@ -148,14 +70,7 @@ body.sitrus-coordinator-active .form-group {
     width: 100%;
     min-width: clamp(200px, 50svw, 280px);
     z-index: 100;
-
-    background: rgba(0, 0, 0, 0.6);
-    padding: clamp(10px, 2svw, 15px);
-    border-radius: clamp(6px, 0.8svw, 8px);
     margin-top: clamp(8px, 1svh, 10px);
-    margin-bottom: 0;
-    color: white;
-    text-align: left;
     box-sizing: border-box;
 
     opacity: 1;
@@ -172,12 +87,82 @@ body.sitrus-coordinator-active .form-group label {
 
 /* 非表示時 */
 body.sitrus-coordinator-active .form-group.sc-form-hidden {
-    opacity: 0;
-    visibility: hidden;
-    max-height: 0;
-    margin-top: 0;
-    padding-top: 0;
-    padding-bottom: 0;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    max-height: 0 !important;
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+/* ログインボタン */
+body.sitrus-coordinator-active #loginButton {
+    background: rgba(0, 0, 0, 0.4) !important;
+    border: clamp(2px, 0.3svw, 3px) solid white !important;
+    border-radius: clamp(8px, 1.2svw, 12px) !important;
+    color: white !important;
+    box-shadow: none !important;
+    width: 100% !important;
+    padding: clamp(12px, 1.5svh, 15px) clamp(30px, 4svw, 40px) !important;
+    transition: all 0.3s ease !important;
+}
+
+body.sitrus-coordinator-active #loginButton:hover {
+    background: rgba(255, 255, 255, 0.2) !important;
+    transform: scale(1.02) !important;
+    cursor: pointer !important;
+}
+
+body.sitrus-coordinator-active #loginButton .si-jp {
+    font-size: 1.8rem !important;
+    font-weight: bold !important;
+    letter-spacing: 0.2em !important;
+}
+body.sitrus-coordinator-active #loginButton .si-en {
+    display: none !important;
+}
+
+/* --- 教職員向けトグル --- */
+#sc-toggle-wrapper {
+    margin-top: clamp(10px, 1.5svh, 15px);
+    text-align: center;
+    position: relative;
+}
+
+#sc-faculty-toggle {
+    color: white !important;
+    font-size: 0.85rem;
+    cursor: pointer;
+    text-shadow: clamp(0.5px, 0.1svw, 1px) clamp(0.5px, 0.1svw, 1px) clamp(1px, 0.2svw, 2px) rgba(0, 0, 0, 0.8);
+    display: inline-flex;
+    align-items: center;
+    gap: clamp(4px, 0.6svw, 6px);
+    transition: opacity 0.2s;
+    user-select: none;
+}
+
+#sc-faculty-toggle:hover {
+    opacity: 0.7;
+}
+
+.sc-toggle-arrow {
+    display: inline-block;
+    transition: transform 0.3s ease;
+    font-family: monospace;
+    font-weight: bold;
+}
+
+#sc-faculty-toggle.is-open .sc-toggle-arrow {
+    transform: rotate(90deg);
+}
+
+/* サインインできない場合の案内リンク */
+body.sitrus-coordinator-active .login-help {
+    color: rgba(255, 255, 255, 0.7) !important;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8) !important;
+}
+body.sitrus-coordinator-active .login-help:hover {
+    color: white !important;
 }
 
 /* バージョン表記 */
@@ -185,22 +170,24 @@ body.sitrus-coordinator-active .form-group.sc-form-hidden {
     position: absolute;
     bottom: 2vh;
     right: 2vw;
-    color: white;
+    color: white !important;
     font-size: 0.75rem;
-    text-shadow: clamp(0.5px, 0.1svw, 1px) clamp(0.5px, 0.1svw, 1px) clamp(1px, 0.2svw, 2px) rgba(0, 0, 0, 0.8);
+    text-shadow: clamp(0.5px, 0.1svw, 1px) clamp(0.5px, 0.1svw, 1px) clamp(1px, 0.2svw, 2px) rgba(0, 0, 0, 0.8) !important;
     z-index: 10;
 }
 
-/* レスポンシブ */
+body.sitrus-coordinator-active div[style*="bottom:8px"] {
+    color: rgba(255, 255, 255, 0.6) !important;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8) !important;
+}
+
 @media (max-width: 768px) {
     #sc-logo-container {
         top: 3vh;
         width: 60vw;
     }
-
-    body.sitrus-coordinator-active #loginButton {
+    body.sitrus-coordinator-active #loginButton .si-jp {
         font-size: 1.5rem !important;
-        padding: clamp(10px, 1.2svh, 12px) clamp(15px, 2.5svw, 20px) !important;
     }
 }
 
@@ -208,940 +195,36 @@ body.sitrus-coordinator-active .form-group.sc-form-hidden {
    Navbar Brand Styling
    ========================================================================== */
 
-/* ブランド部分 */
-.navbar-brand {
-    display: inline-flex !important;
-    align-items: baseline !important;
-    gap: 0.3em;
-}
-
-/* メインテキスト */
-.navbar-brand-main {
-    display: inline;
-}
-
 /* サブテキスト */
 .navbar-brand-subtitle {
-    font-size: 70% !important;
-    vertical-align: baseline !important;
-    opacity: 0.7;
-    margin-left: 0.4rem;
-}
-
-
-/* ==========================================================================
-   Dashboard
-   ========================================================================== */
-
-/* ダッシュボード背景 */
-html,
-body.sitrus-coordinator-dashboard {
-    font-family: 'BIZ UDP Gothic', sans-serif !important;
-    background-color: transparent !important;
-}
-
-/* タブ背景透過 */
-body.sitrus-coordinator-dashboard .nav-tabs,
-body.sitrus-coordinator-dashboard .tab-content,
-body.sitrus-coordinator-dashboard .tab-pane {
-    background-color: transparent !important;
-    border: none !important;
-    margin-top: 0 !important;
-    padding-top: 0 !important;
-}
-
-/* サイドバー */
-body.sitrus-coordinator-dashboard .sidebar-sticky {
-    top: 50px;
-    height: 90%;
-
-    background: rgba(0, 0, 0, 0.7) !important;
-    backdrop-filter: blur(10px);
-    border-radius: clamp(12px, 2svw, 16px) !important;
-
-    padding-top: 2svh;
-    padding-right: clamp(8px, 1svw, 10px);
-    padding-left: clamp(8px, 1svw, 10px);
-
-    margin-left: clamp(-3px, -0.5svw, -5px) !important;
-    margin-top: clamp(3px, 0.5svh, 5px) !important;
-    box-shadow: 0 clamp(4px, 0.8svw, 8px) clamp(20px, 3svw, 32px) rgba(0, 0, 0, 0.3);
-    max-height: 96svh !important;
-    overflow: auto !important;
-}
-
-/* タブレイアウト */
-body.sitrus-coordinator-dashboard .nav-tabs {
-    display: flex !important;
-    flex-wrap: nowrap !important;
-    justify-content: space-around;
-    border-bottom: max(1px, 0.1svw) solid rgba(255, 255, 255, 0.2) !important;
-    /* margin-top: 0 !important; */
-    /* margin-bottom: clamp(8px, 1.2svh, 12px) !important; */
-    padding: 0 !important;
-}
-
-/* ナビゲーション */
-body.sitrus-coordinator-dashboard .nav {
-    margin-top: 0 !important;
-    padding-top: 0 !important;
-    margin-bottom: 4svh !important;
-}
-
-/* 非アクティブタブ */
-body.sitrus-coordinator-dashboard .nav-tabs .nav-link {
-    color: rgba(255, 255, 255, 0.6) !important;
-    border: none !important;
-    background: transparent !important;
-    font-size: 0.85rem !important;
-    padding: clamp(3px, 0.4svw, 4px) clamp(3px, 0.5svw, 5px) clamp(8px, 1svh, 10px) !important;
-    white-space: nowrap !important;
-    transition: all 0.3s ease;
-}
-
-/* ホバー時 */
-body.sitrus-coordinator-dashboard .nav-tabs .nav-link:hover {
-    color: white !important;
-    border: none !important;
-}
-
-/* アクティブなタブ */
-body.sitrus-coordinator-dashboard .nav-tabs .nav-link.active {
-    color: white !important;
-    background: transparent !important;
-    border: none !important;
-    border-bottom: clamp(2px, 0.3svw, 3px) solid white !important;
-    font-weight: bold;
-}
-
-/* メニューボタン */
-body.sitrus-coordinator-dashboard .tab-pane a.button_list {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: flex-start !important;
-    background: rgba(255, 255, 255, 0.05) !important;
-    border: max(1px, 0.1svw) solid rgba(255, 255, 255, 0.1) !important;
-    border-radius: clamp(6px, 0.8svw, 8px) !important;
-    color: white !important;
-    padding: clamp(8px, 1svh, 10px) clamp(12px, 1.5svw, 15px) !important;
-
-    margin-top: clamp(4px, 5svh, 25px) !important;
-
-    font-size: 0.95rem !important;
-    font-weight: normal;
-    transition: all 0.2s ease;
-    text-decoration: none !important;
-    box-shadow: none !important;
-    width: 100%;
-}
-
-body.sitrus-coordinator-dashboard .tab-pane a.button_list:hover {
-    background: rgba(255, 255, 255, 0.15) !important;
-    border-color: rgba(255, 255, 255, 0.3) !important;
-    transform: translateX(6px);
-}
-
-
-/* ボタンアイコン */
-body.sitrus-coordinator-dashboard .tab-pane a.button_list img {
-    margin-right: clamp(8px, 1svw, 12px) !important;
-    width: clamp(16px, 2svw, 20px) !important;
-    height: clamp(16px, 2svw, 20px) !important;
-    object-fit: contain;
-
-    filter: invert(1) grayscale(1) brightness(2) !important;
-    mix-blend-mode: screen !important;
-}
-
-/* 最初のボタン */
-body.sitrus-coordinator-dashboard .tab-pane a.button_list:first-child {
-    margin-top: 0 !important;
-}
-
-/* タブコンテンツ余白 */
-body.sitrus-coordinator-dashboard .tab-content {
-    padding-top: 0 !important;
-    margin-top: 0 !important;
-}
-
-body.sitrus-coordinator-dashboard #portfolio_msg {
-    color: #ffffff !important;
-}
-
-/* ==========================================================================
-   Loading Screen
-   ========================================================================== */
-
-/* ローディング画面のオーバーレイ */
-#loading {
-    position: fixed !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 100% !important;
-    height: 100% !important;
-    background: linear-gradient(135deg, rgba(74, 111, 165, 0.65) 0%, rgba(58, 87, 149, 0.65) 100%) !important;
-    backdrop-filter: blur(8px);
-    z-index: 9999 !important;
-    justify-content: center !important;
-    align-items: center !important;
-}
-
-/* ローディング表示状態 */
-#loading:not([style*="display: none"]) {
-    display: flex !important;
-}
-
-/* スピナーコンテナ */
-#spinner {
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: center !important;
-    align-items: center !important;
-    z-index: 10000;
-    font-family: 'BIZ UDP Gothic', sans-serif !important;
-}
-
-/* ローディングスピナー */
-#spinner .spinner-border {
-    width: clamp(2.5rem, 10svw, 4rem) !important;
-    height: clamp(2.5rem, 10svw, 4rem) !important;
-    border: clamp(2px, 0.4svw, 4px) solid rgba(255, 255, 255, 0.2) !important;
-    border-top-color: white !important;
-    color: white !important;
-}
-
-/* ローディングテキスト */
-#loading-text {
-    margin-top: clamp(20px, 3svh, 30px) !important;
-    font-size: 1.2rem !important;
-    color: white !important;
-    text-shadow: 0 clamp(1px, 0.2svw, 2px) clamp(6px, 1svw, 8px) rgba(0, 0, 0, 0.3) !important;
-    font-weight: 500;
-    letter-spacing: 0.05em;
-}
-
-/* ==========================================================================
-   Header Navigation
-   ========================================================================== */
-
-/* ユーザー名ボタン */
-#userName {
-    border-radius: clamp(6px, 0.8svw, 8px) !important;
-    transition: all 0.2s ease !important;
-    font-family: 'BIZ UDP Gothic', sans-serif !important;
-}
-
-#userName:hover {
-    transform: translateY(clamp(-1px, -0.2svh, -2px));
-    box-shadow: 0 clamp(2px, 0.5svh, 4px) clamp(8px, 1.5svw, 12px) rgba(0, 0, 0, 0.2) !important;
-}
-
-/* 言語切り替え */
-#JpnEngMode {
-    border-radius: clamp(6px, 0.8svw, 8px) !important;
-    transition: all 0.2s ease !important;
-    font-family: 'BIZ UDP Gothic', sans-serif !important;
-    margin-left: clamp(6px, 0.8svw, 8px) !important;
-}
-
-#JpnEngMode:hover {
-    transform: translateY(clamp(-1px, -0.2svh, -2px));
-    box-shadow: 0 clamp(2px, 0.5svh, 4px) clamp(8px, 1.5svw, 12px) rgba(0, 0, 0, 0.2) !important;
-}
-
-/* ==========================================================================
-   Modal
-   ========================================================================== */
-
-/* モーダルコンテナ */
-div.modal.msg_box_YesNo {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    padding: 0 !important;
-    background-color: rgba(0, 0, 0, 0.25) !important;
-    backdrop-filter: none !important;
-    border-radius: clamp(12px, 2svw, 16px) !important;
-}
-
-/* モーダルダイアログ */
-div.modal.msg_box_YesNo .modal-dialog {
-    width: clamp(80%, 90svw, 90%) !important;
-    max-width: clamp(300px, 60svw, 380px) !important;
-    margin: auto !important;
-    height: auto !important;
-    display: block !important;
-    transform: none !important;
-    border: none !important;
-}
-
-/* モーダル本体 */
-div.modal.msg_box_YesNo .modal-content {
-    height: auto !important;
-    background-color: #ffffff !important;
-    border-radius: clamp(12px, 2svw, 16px) !important;
-    border: none !important;
-    box-shadow: 0 clamp(10px, 1.5svw, 16px) clamp(30px, 5svw, 48px) rgba(0, 0, 0, 0.25) !important;
-    overflow: hidden !important;
-}
-
-/* モーダルヘッダー */
-div.modal.msg_box_YesNo .modal-header {
-    background-color: #ffffff !important;
-    border-bottom: max(1px, 0.1svw) solid #eeeeee !important;
-    padding: clamp(12px, 1.6svh, 16px) clamp(15px, 2svw, 20px) !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: space-between !important;
-}
-
-/* タイトル */
-div.modal.msg_box_YesNo .modal-title {
-    color: #333333 !important;
-    font-weight: bold !important;
-    font-size: clamp(0.95rem, 1.1svw, 1.1rem) !important;
-    margin: 0 !important;
-}
-
-/* 閉じるボタン（×） */
-div.modal.msg_box_YesNo .close {
-    color: #999999 !important;
-    font-size: clamp(1.2rem, 1.5svw, 1.5rem) !important;
-    line-height: 1 !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    background: transparent !important;
-    border: none !important;
-    opacity: 1 !important;
-    cursor: pointer !important;
-}
-
-div.modal.msg_box_YesNo .close:hover {
-    color: #333333 !important;
-}
-
-/* モーダルメッセージ */
-div.modal.msg_box_YesNo .modal-body1 {
-    background-color: #ffffff !important;
-    padding: clamp(20px, 3svh, 30px) clamp(15px, 2svw, 20px) !important;
-    text-align: center !important;
-}
-
-div.modal.msg_box_YesNo .jik_kakunin_body {
-    color: #333333 !important;
-    font-size: clamp(0.9rem, 1.05svw, 1.05rem) !important;
-    margin: 0 !important;
-    padding: 0 !important;
+    font-size: 0.75rem !important;
+    opacity: 0.8;
+    margin-left: 8px;
     font-weight: normal !important;
-}
-
-/* モーダルフッター */
-div.modal.msg_box_YesNo .modal-footer {
-    background-color: #ffffff !important;
-    border-top: none !important;
-    padding: 0 clamp(15px, 2svw, 20px) clamp(16px, 2svh, 24px) !important;
-    display: flex !important;
-    justify-content: center !important;
-    gap: clamp(12px, 1.5svw, 15px) !important;
-}
-
-/* ボタン共通スタイル */
-div.modal.msg_box_YesNo .modal-footer .btn {
-    margin: 0 !important;
-    border-radius: clamp(6px, 0.8svw, 8px) !important;
-    padding: clamp(8px, 1svh, 10px) 0 !important;
-    width: clamp(90px, 15svw, 120px) !important;
-    font-weight: bold !important;
-    font-size: 0.95rem !important;
-    transition: all 0.2s ease !important;
-    cursor: pointer !important;
-}
-
-div.modal.msg_box_YesNo .modal-footer .btn:hover {
-    transform: translateY(clamp(-1px, -0.2svh, -2px)) !important;
-    box-shadow: 0 clamp(2px, 0.5svh, 4px) clamp(8px, 1.5svw, 12px) rgba(0, 0, 0, 0.15) !important;
-}
-
-/* 「はい」ボタン (Primary) */
-div.modal.msg_box_YesNo .modal-footer .btn-primary {
-    background-color: #4a6fa5 !important;
-    color: #ffffff !important;
-    border: none !important;
-}
-
-/* 「いいえ」ボタン (Secondary) */
-div.modal.msg_box_YesNo .modal-footer .btn-secondary {
-    background-color: #f1f3f5 !important;
-    color: #495057 !important;
-    border: none !important;
-}
-
-/* ==========================================================================
-   Main Content Area
-   ========================================================================== */
-
-/* レイアウトの大枠：slide, slide1 両方に対応 */
-body.sitrus-coordinator-dashboard main,
-body.sitrus-coordinator-dashboard [class^="_navbar_fixed_top_slide"] {
-    background: transparent !important;
-    box-shadow: none !important;
-    border: none !important;
-}
-
-/* メインの白いカード：containerを狙い撃ち */
-body.sitrus-coordinator-dashboard [class^="_navbar_fixed_top_slide"] .container {
-    background: rgba(255, 255, 255, 0.95) !important;
-    backdrop-filter: blur(10px) !important;
-    border-radius: clamp(12px, 2svw, 16px) !important;
-    padding: clamp(20px, 3svh, 30px) !important;
-
-    /* サイドバーと高さを同期 */
-    margin-top: clamp(10px, 1.5svh, 15px) !important;
-    margin-bottom: clamp(10px, 1.5svh, 15px) !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
-
-    box-shadow: 0 clamp(4px, 0.8svw, 8px) clamp(20px, 3svw, 32px) rgba(0, 0, 0, 0.1) !important;
-    max-width: 96% !important;
-    height: auto !important;
-    max-height: 96svh !important;
-    overflow-y: auto !important;
-}
-
-body.sitrus-coordinator-dashboard .jumbotron {
-    background: transparent !important;
-    box-shadow: none !important;
-    border: max(1px, 0.1svw) solid rgba(0, 0, 0, 0.1) !important;
-    border-radius: clamp(9px, 1.2svw, 12px) !important;
-    padding: clamp(15px, 2svh, 20px) clamp(18px, 2.5svw, 25px) !important;
-    margin-bottom: clamp(15px, 2svh, 20px) !important;
-
-    max-height: 800px;
-    opacity: 1;
-    overflow: hidden;
-    transition: max-height 0.4s ease, opacity 0.3s ease, padding 0.4s ease, margin 0.4s ease, border-width 0.4s ease !important;
-
-    flex-shrink: 0 !important;
-    height: auto !important;
-    min-height: min-content !important;
-}
-
-/* jumbotron非表示時のスタイル */
-body.sitrus-coordinator-dashboard .jumbotron.sc-jumbotron-hidden {
-    max-height: 0 !important;
-    min-height: 0 !important;
-    opacity: 0 !important;
-    padding-top: 0 !important;
-    padding-bottom: 0 !important;
-    margin-bottom: 0 !important;
-    border-width: 0 !important;
-}
-
-/* タイトル装飾 */
-body.sitrus-coordinator-dashboard h3 {
-    font-size: clamp(1.1rem, 1.3svw, 1.3rem) !important;
-    font-weight: bold !important;
-    display: flex !important;
-    align-items: center !important;
-    color: #333 !important;
-}
-
-body.sitrus-coordinator-dashboard h3 img {
-    margin-right: clamp(8px, 1svw, 12px) !important;
-}
-
-/* システム通知・予定科目のアクセント */
-body.sitrus-coordinator-dashboard #System_contents,
-body.sitrus-coordinator-dashboard #Subjects_scheduled_to_acquired {
-    background: rgba(230, 245, 255, 0.6) !important;
-    border: none !important;
-    border-left: clamp(4px, 0.6svw, 6px) solid #4a6fa5 !important;
-    border-radius: 0 clamp(9px, 1.2svw, 12px) clamp(9px, 1.2svw, 12px) 0 !important;
-}
-
-/* ag-Gridの調整 */
-body.sitrus-coordinator-dashboard .ag-theme-balham {
-    border-radius: clamp(6px, 0.8svw, 8px) !important;
-    overflow: hidden !important;
-    border: max(1px, 0.1svw) solid rgba(0, 0, 0, 0.1) !important;
-}
-
-/* グリッドヘッダー */
-body.sitrus-coordinator-dashboard .ag-header {
-    background-color: #f1f5f9 !important;
-    border-bottom: clamp(1px, 0.2svw, 2px) solid #4a6fa5 !important;
-}
-
-body.sitrus-coordinator-dashboard .ag-header-cell-label {
-    color: #4a6fa5 !important;
-    font-weight: bold !important;
-}
-
-/* 背景色（グレー） */
-body.sitrus-coordinator-dashboard {
-    background-color: #f4f6f9 !important;
-}
-
-/* グリッド列 */
-body.sitrus-coordinator-dashboard .ag-header-cell {
-    border-right: max(1px, 0.1svw) solid rgba(0, 0, 0, 0.05) !important;
-}
-
-/* ==========================================================================
-   Main Content Layout - Navbar Fixed Top Positioning
-   ========================================================================== */
-
-/* メインコンテンツエリアをナビゲーションバー下に配置 */
-body.sitrus-coordinator-dashboard ._navbar_fixed_top_slide {
-    top: 50px;
-    position: fixed;
-    width: 82%;
-    height: 90%;
-    box-shadow: 0px 0px 10px 10px rgba(0, 0, 0, 0.45), 10px 10px 10px 0px rgba(0, 0, 0, 0.45);
-    overflow: auto !important;
-    overflow-x: auto !important;
-    white-space: nowrap !important;
-}
-
-/* スライド1レイアウト（60%幅） */
-body.sitrus-coordinator-dashboard ._navbar_fixed_top_slide1 {
-    top: 50px;
-    position: fixed;
-    width: 60%;
-    height: 90%;
-    box-shadow: 0px 0px 10px 10px rgba(0, 0, 0, 0.45), 10px 10px 10px 0px rgba(0, 0, 0, 0.45);
-    overflow: auto !important;
-}
-
-/* スライド2レイアウト（21%幅、右寄せ） */
-body.sitrus-coordinator-dashboard ._navbar_fixed_top_slide2 {
-    top: 50px;
-    position: fixed;
-    width: 21%;
-    height: 90%;
-    box-shadow: 0px 0px 10px 10px rgba(0, 0, 0, 0.45), 10px 10px 10px 0px rgba(0, 0, 0, 0.45);
-    /* overflow: auto !important; */
-    overflow-y: scroll !important;
-    right: 0.5% !important;
-}
-
-
-/* テーブルヘッダー */
-body.sitrus-coordinator-dashboard table thead th {
-    background-color: #f1f5f9 !important;
-    color: #4a6fa5 !important;
-    border-bottom: clamp(1px, 0.2svw, 2px) solid #4a6fa5 !important;
-    border-top: none !important;
-    font-weight: bold !important;
-    padding: clamp(8px, 1.2svh, 12px) clamp(6px, 0.8svw, 8px) !important;
-}
-
-/* テーブルセル */
-body.sitrus-coordinator-dashboard table td,
-body.sitrus-coordinator-dashboard table th {
-    border-color: rgba(0, 0, 0, 0.03) !important;
-}
-
-
-
-/* ==========================================================================
-   Timetable Custom UI (Header & Tabs & Iframe)
-   ========================================================================== */
-
-/* ヘッダー */
-.sc-main-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    border-bottom: 2px solid var(--border-color);
-    padding-bottom: 12px;
-    margin-bottom: 20px;
-    flex-shrink: 0;
-}
-
-.sc-header-title h3 {
-    margin: 0 !important;
-    font-size: clamp(1.2rem, 1.5svw, 1.5rem) !important;
-    color: var(--sit-green) !important;
-    font-weight: bold !important;
-    display: flex;
-    align-items: center;
-}
-
-.sc-header-controls {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-/* タブボタングループ (自所属 / 全学) */
-.sc-btn-group {
-    display: flex;
-    background: var(--bg-light);
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    padding: 4px;
-    gap: 4px;
-}
-
-/* SITRUSのボタンスタイルを上書き */
-body.sitrus-coordinator-dashboard .sc-main-header .sc-tab-btn {
-    appearance: none !important;
-    background: transparent !important;
-    border: none !important;
-    color: var(--text-muted) !important;
-    font-weight: bold !important;
-    font-size: 0.9rem !important;
-    padding: 6px 16px !important;
-    border-radius: 6px !important;
-    cursor: pointer !important;
-    box-shadow: none !important;
-    margin: 0 !important;
-    transition: all 0.2s ease !important;
-}
-
-body.sitrus-coordinator-dashboard .sc-main-header .sc-tab-btn:hover {
-    background: rgba(0, 0, 0, 0.05) !important;
-}
-
-/* アクティブなタブ */
-body.sitrus-coordinator-dashboard .sc-main-header .sc-tab-btn.sc-active,
-body.sitrus-coordinator-dashboard .sc-main-header .sc-tab-btn[style*="yellow"] {
-    background: var(--card-bg) !important;
-    color: var(--sit-green) !important;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08) !important;
-}
-
-/* 説明文の開閉(最小化)ボタン */
-.sc-toggle-info-btn {
-    background: transparent;
-    border: 1px solid var(--border-color);
-    border-radius: 6px;
-    color: var(--text-muted);
-    padding: 6px 12px;
-    font-size: 0.85rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    display: flex;
-    align-items: center;
-}
-
-.sc-toggle-info-btn:hover {
-    background: var(--bg-light);
-    color: var(--text-main);
-}
-
-
-
-/* ==========================================================================
-   Dashboard Layout
-   ========================================================================== */
-
-body.sitrus-coordinator-dashboard .container-fluid {
-    padding: 0 !important;
-    margin-top: 50px !important;
-    /* height: calc(100vh - 50px) !important; */
-    width: 100% !important;
-    overflow: hidden !important;
-}
-
-body.sitrus-coordinator-dashboard .row {
-    display: flex !important;
-    flex-direction: row !important;
-    flex-wrap: nowrap !important;
-    margin: 0 !important;
-    height: calc(100vh - 50px) !important;
-    width: 100% !important;
-
-    /* 上下左右の余白 ＆ 要素間の隙間 */
-    padding: clamp(10px, 1.5svh, 15px) clamp(15px, 2svw, 25px) !important;
-    gap: clamp(12px, 1.5svw, 20px) !important;
-    box-sizing: border-box !important;
-}
-
-/* ==========================================================================
-   Column Controls
-   ========================================================================== */
-
-/* 左：サイドバーメニュー (幅固定) */
-body.sitrus-coordinator-dashboard nav.sidebar:not(:has(._navbar_fixed_top_slide2)) {
-    flex: 0 0 clamp(200px, 18svw, 250px) !important;
-    max-width: clamp(200px, 18svw, 250px) !important;
-    height: 100% !important;
-    padding: 0 !important;
-}
-
-/* 中：メインコンテンツ */
-body.sitrus-coordinator-dashboard main {
-    flex: 1 1 auto !important;
-    min-width: 0 !important;
-    height: 100% !important;
-    display: flex !important;
-    flex-direction: column !important;
-    padding: 0 !important;
-    margin: 0 !important;
-}
-
-/* 右：取得予定単位数サイドバー */
-body.sitrus-coordinator-dashboard nav:has(._navbar_fixed_top_slide2) {
-    flex: 0 0 clamp(280px, 25svw, 350px) !important;
-    max-width: clamp(280px, 25svw, 350px) !important;
-    height: 100% !important;
-    padding: 0 !important;
-}
-
-/* ==========================================================================
-   Content UI Styling
-   ========================================================================== */
-
-body.sitrus-coordinator-dashboard .sidebar-sticky,
-body.sitrus-coordinator-dashboard [class^="_navbar_fixed_top_slide"] {
-    position: relative !important;
-    top: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-    width: 100% !important;
-    margin: 0 !important;
-    box-shadow: 0 clamp(4px, 0.8svw, 8px) clamp(20px, 3svw, 32px) rgba(0, 0, 0, 0.1) !important;
-    border-radius: clamp(12px, 2svw, 16px) !important;
-    background: rgba(255, 255, 255, 0.95) !important;
-    backdrop-filter: blur(10px) !important;
-    box-sizing: border-box !important;
-    overflow-y: auto !important;
-}
-
-body.sitrus-coordinator-dashboard .sidebar-sticky {
-    background: rgba(0, 0, 0, 0.7) !important;
-    color: white !important;
-}
-
-body.sitrus-coordinator-dashboard [class^="_navbar_fixed_top_slide"] .container {
-    width: 100% !important;
-    max-width: none !important;
-    padding: clamp(15px, 2svh, 25px) !important;
-    margin: 0 !important;
-    background: transparent !important;
-    box-shadow: none !important;
-    backdrop-filter: none !important;
-}
-
-/* ==========================================================================
-   Timetable & History Grid Area
-   ========================================================================== */
-
-body.sitrus-coordinator-dashboard a#hicyusen_kikan2 {
-    display: block !important;
-    width: 100% !important;
-    text-decoration: none !important;
-    color: inherit !important;
-}
-
-body.sitrus-coordinator-dashboard [class^="_navbar_fixed_top_slide"] .form-row:has(.form-row),
-body.sitrus-coordinator-dashboard [class^="_navbar_fixed_top_slide"] .form-row:has(#itiran_list, #r_list, #ji_list),
-body.sitrus-coordinator-dashboard [class^="_navbar_fixed_top_slide"] .col-sm:has(#itiran_list, #r_list, #ji_list) {
-    display: block !important;
-    width: 100% !important;
-    height: auto !important;
-    margin: 0 !important;
-    padding: 0 !important;
-}
-
-body.sitrus-coordinator-dashboard #itiran_list,
-body.sitrus-coordinator-dashboard #r_list,
-body.sitrus-coordinator-dashboard #ji_list,
-body.sitrus-coordinator-dashboard #j_list,
-body.sitrus-coordinator-dashboard #sk_list,
-body.sitrus-coordinator-dashboard .ag-theme-balham:not(.ag-popup) {
-    width: 100% !important;
-
-    background: rgba(255, 255, 255, 0.95) !important;
-    backdrop-filter: blur(10px) !important;
-    border: none !important;
-    border-radius: clamp(12px, 2svw, 16px) !important;
-    box-shadow: 0 clamp(4px, 0.8svw, 8px) clamp(20px, 3svw, 32px) rgba(0, 0, 0, 0.1) !important;
-    overflow: visible !important;
-}
-
-/* ==========================================================================
-   Credit Table Styling
-   ========================================================================== */
-
-#yt_list {
-    font-size: 0.85rem !important;
-    width: 100% !important;
-}
-
-#yt_list th,
-#yt_list td {
-    padding: 4px 8px !important;
-    white-space: normal !important;
-}
-
-
-
-/* ==========================================================================
-   DataTables (事前準備リスト等) のレイアウト崩れ修正
-   ========================================================================== */
-
-body.sitrus-coordinator-dashboard a#hicyusen_kikan2 {
-    display: block !important;
-    width: 100% !important;
-    text-decoration: none !important;
-    cursor: default !important;
-}
-
-/* ==========================================================================
-   履修申請画面 - 単位取得状況サイドバーの幅調整
-   ========================================================================== */
-
-body.sitrus-coordinator-dashboard a#hicyusen_kikan nav {
-    flex: 0 0 40svw !important;
-    max-width: 40svw !important;
-}
-
-body.sitrus-coordinator-dashboard .dataTables_wrapper .row {
-    display: flex !important;
-    flex-direction: row !important;
-    flex-wrap: wrap !important;
-    height: auto !important;
-    width: 100% !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    gap: 0 !important;
-}
-
-body.sitrus-coordinator-dashboard .dataTables_wrapper .col-sm-12 {
-    flex: 0 0 100% !important;
-    max-width: 100% !important;
-    width: 100% !important;
-    padding: 0 !important;
-}
-
-/* #ji_list などの DataTables 本体 */
-body.sitrus-coordinator-dashboard #ji_list,
-body.sitrus-coordinator-dashboard #s_list {
-    display: table !important;
-    width: 100% !important;
-    background: rgba(255, 255, 255, 0.95) !important;
-    backdrop-filter: blur(10px) !important;
-    border: none !important;
-    border-radius: clamp(12px, 2svw, 16px) !important;
-    box-shadow: 0 clamp(4px, 0.8svw, 8px) clamp(20px, 3svw, 32px) rgba(0, 0, 0, 0.1) !important;
-    margin-top: 10px !important;
-    overflow-y: visible !important;
-}
-
-body.sitrus-coordinator-dashboard #ji_list thead th {
-    background-color: #f1f5f9 !important;
-    color: #4a6fa5 !important;
-    border-bottom: 2px solid #4a6fa5 !important;
-    font-weight: bold !important;
-    padding: 10px !important;
-}
-
-body.sitrus-coordinator-dashboard #ji_list td {
-    padding: 10px !important;
-    vertical-align: middle !important;
-}
-
-
-
-/* ==========================================================================
-   ag-Grid 無限ループ対策 ＆ 空白除去
-   ========================================================================== */
-
-body.sitrus-coordinator-dashboard [class^="_navbar_fixed_top_slide"] {
-    display: flex !important;
-    flex-direction: column !important;
-    height: 100% !important;
-}
-
-body.sitrus-coordinator-dashboard [class^="_navbar_fixed_top_slide"] .container {
-    display: flex !important;
-    flex-direction: column !important;
-    flex: 1 1 auto !important;
-    min-height: 0 !important;
-    height: 100% !important;
-}
-
-/* 時間割一覧専用のレイアウト */
-body.sitrus-coordinator-dashboard.page-timetable [class^="_navbar_fixed_top_slide"] .container {
-    overflow: hidden !important;
-}
-
-/* ヘッダー・説明文(Jumbotron)が潰れないように保護 */
-body.sitrus-coordinator-dashboard.page-timetable .sc-main-header,
-body.sitrus-coordinator-dashboard.page-timetable .jumbotron {
-    flex-shrink: 0 !important;
-}
-
-/* 表を囲む親要素をすべて縦Flex化 (時間割一覧専用) */
-body.sitrus-coordinator-dashboard.page-timetable [class^="_navbar_fixed_top_slide"] .container *:has(> #itiran_list),
-body.sitrus-coordinator-dashboard.page-timetable [class^="_navbar_fixed_top_slide"] .container *:has(> * > #itiran_list) {
-    display: flex !important;
-    flex-direction: column !important;
-    flex: 1 1 auto !important;
-    min-height: 0 !important;
-    width: 100% !important;
-    margin: 0 !important;
-    padding: 0 !important;
-}
-
-/* ag-Grid本体の指定 (時間割一覧専用) */
-body.sitrus-coordinator-dashboard.page-timetable #itiran_list {
-    flex: 1 1 auto !important;
-    height: 100% !important;
-    min-height: 0 !important;
-    width: 100% !important;
-
-    margin-top: clamp(10px, 1.5svh, 15px) !important;
-
-    /* 既存のデザイン指定引き継ぎ */
-    background: rgba(255, 255, 255, 0.95) !important;
-    backdrop-filter: blur(10px) !important;
-    border: none !important;
-    border-radius: clamp(12px, 2svw, 16px) !important;
-    box-shadow: 0 clamp(4px, 0.8svw, 8px) clamp(20px, 3svw, 32px) rgba(0, 0, 0, 0.1) !important;
-    overflow: hidden !important;
-}
-
-/* sitrus.cssの引継ぎ */
-.jik_kakunin_header {
-    position: sticky;
-    top: 0;
-    background: #fff;
-    border-bottom: 1px solid #dee2e6;
-    font-weight: bold;
-    font-size: 1.2em;
-}
-
-.modal-body1 {
-    max-height: calc(49vh - 50px);
-    overflow-y: auto;
-    cursor: not-allowed !important;
-}
-
-.jik_kakunin_body {
-    flex: 1 1 auto;
-    overflow-y: auto;
-    cursor: not-allowed !important;
+    letter-spacing: 0.02em;
+    vertical-align: baseline;
 }
 
 /* ==========================================================================
    定員(残)表示チェックボックス
    ========================================================================== */
 
-/* チェックボックスのスタイル */
-#teiin_display {
-    cursor: pointer;
+#sc_teiin_wrapper {
     margin-right: 8px;
 }
 
-/* チェックボックスラベルのスタイル */
-input[type="checkbox"] + label.col-form-label,
-#teiin_display + label {
-    cursor: pointer;
-    margin-bottom: 0;
-    white-space: nowrap;
+#sc_teiin_wrapper label:hover {
+    color: var(--fg, #000) !important;
+}
+
+/* ==========================================================================
+   定員(残)表示のダークモード対応
+   ========================================================================== */
+
+/* inject.jsで付与された黒色などのインラインスタイルを打ち消し、テーマの文字色を継承させる */
+html[data-theme="dark"] .ag-cell-value b,
+html[data-theme="dark"] .ag-cell-value strong,
+html[data-theme="dark"] .ag-cell-value font,
+html[data-theme="dark"] .ag-cell-value span {
+    color: inherit !important;
 }

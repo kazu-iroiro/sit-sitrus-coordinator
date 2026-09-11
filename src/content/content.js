@@ -10,19 +10,15 @@ class SitrusCoordinator {
     init() {
         console.log('SITRUS Coordinator: 起動しました。');
 
-        // sitrus.cssの読み込みをブロック
-        this.blockSitrusCss();
-
-        // ナビゲーションバーのブランドテキスト修正
         this.enhanceNavbarBrand();
 
         // 現在のページを判定して処理を分岐
         if (document.getElementById('loginButton')) {
-            console.log('ログイン画面のUIを改善します。');
+            console.log('ログイン画面のUX改善');
             this.applyUiImprovements();
             this.bindEvents();
-        } else if (document.querySelector('.sidebar-sticky')) {
-            console.log('ダッシュボード画面のUIを改善します。');
+        } else {
+            console.log('ダッシュボード画面の機能を拡張します。');
             this.initDashboard();
         }
     }
@@ -33,148 +29,30 @@ class SitrusCoordinator {
     injectPageScript() {
         const script = document.createElement('script');
         script.src = chrome.runtime.getURL('src/inject/inject.js');
-        
-        script.onload = function() {
+
+        script.onload = function () {
             console.log("SITRUS Coordinator: inject.js の読み込みに成功しました！");
-            this.remove(); 
+            this.remove();
         };
-        
+
         (document.head || document.documentElement).appendChild(script);
-    }
-
-    /* =========================================================
-       sitrus.cssのフィルタリング適用処理
-       ========================================================= */
-    async filterAndApplySitrusCss(href) {
-        try {
-            const response = await fetch(href);
-            if (!response.ok) {
-                console.warn(`SITRUS Coordinator: CSSの取得に失敗しました。 status=${response.status} href=${href}`);
-                return;
-            }
-            let cssText = await response.text();
-
-            // 削除する既知のセレクタ
-            const knownSelectors = [
-                '.sidebar-sticky',
-                '._navbar_fixed_top_slide',
-                '._navbar_fixed_top_slide1',
-                '._navbar_fixed_top_slide2',
-                '.nav-tabs',
-                '.tab-pane',
-                '.tab-content',
-                '.jumbotron',
-                '.msg_box_YesNo',
-                '.msg_box_overlay',
-                '.jik_kakunin_header',
-                '.modal-body1',
-                '.jik_kakunin_body'
-            ];
-
-            knownSelectors.forEach(selector => {
-                const escapedSelector = selector.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-                const regex = new RegExp(`${escapedSelector}\\s*{[^{}]*}`, 'gi');
-                cssText = cssText.replace(regex, '');
-            });
-
-            if (cssText.trim().length > 0) {
-                // 既存要素を取得、なければ新規作成
-                let styleTag = document.getElementById('sitrus-filtered-style');
-                if (!styleTag) {
-                    styleTag = document.createElement('style');
-                    styleTag.id = 'sitrus-filtered-style';
-                    document.head.appendChild(styleTag);
-                }
-                styleTag.textContent = cssText;
-                console.log('SITRUS Coordinator: 未知のスタイルを適用しました。');
-            }
-        } catch (error) {
-            console.error('SITRUS Coordinator: CSSの取得または処理に失敗しました。', error);
-        }
-    }
-
-    blockSitrusCss() {
-        const processedUrls = new Set();
-        let observer = null;
-
-        const handleLink = (node) => {
-            if (node.nodeType === 1 && node.tagName === 'LINK' && node.href && node.href.includes('sitrus.css')) {
-                const url = node.href;
-                if (!processedUrls.has(url)) {
-                    processedUrls.add(url);
-                    console.log('SITRUS Coordinator: sitrus.cssを検出し、フィルタリングを開始します。:', url);
-
-                    // フィルタリング処理
-                    this.filterAndApplySitrusCss(url);
-                }
-                // オリジナルのlinkタグは削除
-                node.remove();
-            }
-        };
-
-        // 既存のリンクを処理
-        document.querySelectorAll('link[href*="sitrus.css"]').forEach(handleLink);
-
-        // 新規追加されるリンクを監視
-        observer = new MutationObserver((mutations) => {
-            for (const mutation of mutations) {
-                for (const node of mutation.addedNodes) {
-                    if (node.nodeType === 1 && node.tagName === 'LINK') {
-                        handleLink(node);
-                    }
-                }
-            }
-        });
-
-        // head のみ監視、オプションを最小化
-        observer.observe(document.head, {
-            childList: true
-        });
-
-        // 20秒経ったらdisconnect
-        setTimeout(() => {
-            observer?.disconnect();
-            console.log('SITRUS Coordinator: blockSitrusCss の監視を終了しました。');
-        }, 20000);
     }
 
     /* =========================================================
        ナビゲーションバーのブランドテキスト改善
        ========================================================= */
     enhanceNavbarBrand() {
-        const navbar = document.querySelector('.navbar');
-        if (!navbar) return;
+        const brandHome = document.getElementById('brandHome');
 
-        // SITRUSシステムのテキストノードを検索
-        let targetNode = null;
-        for (let node of navbar.childNodes) {
-            if (node.nodeType === 3 && node.textContent.includes('SITRUSシステム')) {
-                targetNode = node;
-                break;
-            }
-        }
-
-        if (targetNode && !navbar.classList.contains('sitrus-enhanced')) {
-            // ブランドコンテナを作成
-            const brandContainer = document.createElement('span');
-            brandContainer.className = 'navbar-brand-container';
-
-            // メインテキストを作成
-            const mainText = document.createElement('span');
-            mainText.className = 'navbar-brand-main';
-            mainText.textContent = 'SITRUSシステム';
-
+        if (brandHome && !brandHome.classList.contains('sitrus-enhanced')) {
             // サブタイトルを作成
             const subtitle = document.createElement('span');
             subtitle.className = 'navbar-brand-subtitle';
             subtitle.textContent = 'with SITRUS Coordinator';
 
-            brandContainer.appendChild(mainText);
-            brandContainer.appendChild(subtitle);
-
-            // 元のテキストノードを置き換え
-            targetNode.parentNode.replaceChild(brandContainer, targetNode);
-            navbar.classList.add('sitrus-enhanced');
+            // 挿入
+            brandHome.appendChild(subtitle);
+            brandHome.classList.add('sitrus-enhanced');
         }
     }
 
@@ -188,16 +66,9 @@ class SitrusCoordinator {
     }
 
     hideOriginalElementsSafely() {
-        // システム名の完全一致確認
-        const systemNameEl = document.getElementById('system_name');
-        if (systemNameEl && this.checkExactTextMatch(systemNameEl, 'SITRUSシステム')) {
-            systemNameEl.style.display = 'none';
-        }
-
-        // 説明文の完全一致確認
+        // 旧バージョンの説明文が存在する場合のみ非表示にする
         const loginMsgEl = document.getElementById('login_msg');
-        const expectedMsg = '※学生の場合は「入力なし」で認証開始してください。教職員の場合は「参照する学生のユーザ名」を入力してください。';
-        if (loginMsgEl && this.checkExactTextMatch(loginMsgEl, expectedMsg)) {
+        if (loginMsgEl) {
             loginMsgEl.style.display = 'none';
         }
     }
@@ -251,110 +122,64 @@ class SitrusCoordinator {
     }
 
     /* =========================================================
-       ダッシュボード（サイドバー）用の処理
+       ダッシュボード用の処理
        ========================================================= */
     initDashboard() {
         // ag-Gridをフック
         this.injectPageScript();
 
-        document.body.classList.add('sitrus-coordinator-dashboard');
-        this.hideLoadingScreen();
-        this.reconstructTimetableLayout();
-        this.addTeiinCheckbox();
-
-        this.setupJumbotronObserver();
+        // DOM構築完了後に定員チェックボックスを追加
+        setTimeout(() => {
+            this.addTeiinCheckbox();
+        }, 500);
     }
 
     /* =========================================================
-       定員(残)表示チェックボックスの追加
+       定員表示チェックボックスの追加
        ========================================================= */
     addTeiinCheckbox() {
-        // 空きコマのform-rowを見つける
-        const akikomaRow = document.querySelector('div.form-row#akikoma_top');
-        if (!akikomaRow) {
-            console.warn('SITRUS Coordinator: akikoma_top が見つかりません。');
-            return;
-        }
-        
-        // akikoma_row内の空のラベル要素のみを削除
-        const emptyLabel = akikomaRow.querySelector('label[for="title_ja"]');
-        console.log('SITRUS Coordinator: emptyLabel:', emptyLabel);
-        
-        if (emptyLabel) {
-            const hasTextContent = emptyLabel.textContent.trim().length > 0;
-            const hasChildElements = emptyLabel.children.length > 0;
+        // 既に存在する場合はスキップ
+        if (document.getElementById('sc_teiin_wrapper')) return;
 
-            // テキストと子要素がなければ削除
-            if (!hasTextContent && !hasChildElements) {
-                emptyLabel.remove();
-            }
-        } else {
-            console.log('SITRUS Coordinator: label[for="title_ja"] が見つかりません。');
-        }
-        
         const showTeiinColumn = localStorage.getItem('showTeiinColumn') !== 'false';
-        
-        const teiinCol = document.createElement('div');
-        teiinCol.className = 'col-sm col-md';
-        teiinCol.innerHTML = `<input type="checkbox" id="teiin_display" ${showTeiinColumn ? 'checked' : ''}><label for="teiin_display" class="col-sm-1 col-md-7 col-form-label">定員(残)を表示する</label>`;
-        
-        // akikoma_rowに定員チェックボックスを追加
-        akikomaRow.appendChild(teiinCol);
 
+        // チェックボックスのラッパー要素を作成
+        const checkboxWrapper = document.createElement('div');
+        checkboxWrapper.id = 'sc_teiin_wrapper';
+        checkboxWrapper.className = 'ml-2 my-1 d-flex align-items-center';
+        checkboxWrapper.innerHTML = `
+            <label style="margin: 0; cursor: pointer; display: flex; align-items: center; gap: 4px; font-size: 0.85rem; color: var(--fg-muted, #666); font-weight: 600; transition: color 0.2s;">
+                <input type="checkbox" id="teiin_display" ${showTeiinColumn ? 'checked' : ''} style="margin: 0; cursor: pointer; width: 14px; height: 14px;">
+                定員(残)を表示
+            </label>
+        `;
+
+        // 挿入場所の検索
+        const themeWrap = document.getElementById('topbarThemeWrap');
+
+        if (themeWrap && themeWrap.parentElement) {
+            themeWrap.parentElement.insertBefore(checkboxWrapper, themeWrap);
+        } else {
+            // 見つからない場合
+            const navbarCollapse = document.querySelector('.navbar-collapse .ml-auto');
+            if (navbarCollapse) {
+                navbarCollapse.appendChild(checkboxWrapper);
+            }
+        }
+
+        // イベントリスナーの登録
         const checkbox = document.getElementById('teiin_display');
         if (checkbox) {
-            checkbox.addEventListener('change', function() {
+            checkbox.addEventListener('change', function () {
                 localStorage.setItem('showTeiinColumn', this.checked);
                 // inject.jsに通知
                 window.postMessage({
                     type: 'SC_TEIIN_TOGGLE',
                     checked: this.checked
                 }, '*');
-                console.log("定員列の表示切り替え:", this.checked);
+                console.log("SITRUS Coordinator: 定員列の表示切り替え:", this.checked);
                 location.reload();
             });
-        }
-    }
-
-    /**
-     * jumbotron 監視用 MutationObserver をセットアップ
-     */
-    setupJumbotronObserver() {
-        const mainContainer = document.querySelector('[class^="_navbar_fixed_top_slide"]')?.querySelector('.container');
-        const targetElement = mainContainer || document.body;
-
-        let observer = null;
-        let hasProcessed = false;
-
-        // 初期状態で存在する .jumbotron を処理
-        this.hideEmptyJumbotrons();
-
-        observer = new MutationObserver(() => {
-            if (!hasProcessed) {
-                this.hideEmptyJumbotrons();
-                hasProcessed = true;
-                observer.disconnect();
-                console.log('SITRUS Coordinator: jumbotron の処理が完了したため MutationObserver を停止しました。');
-            }
-        });
-
-        observer.observe(targetElement, { childList: true, subtree: true });
-
-        // ページ離脱時にdisconnect()
-        window.addEventListener('beforeunload', () => {
-            if (observer) {
-                observer.disconnect();
-            }
-        }, { once: true });
-    }
-
-    /* =========================================================
-       ローディング画面の制御
-       ========================================================= */
-    hideLoadingScreen() {
-        const loadingElement = document.getElementById('loading');
-        if (loadingElement) {
-            loadingElement.style.display = 'none';
         }
     }
 
@@ -370,140 +195,6 @@ class SitrusCoordinator {
     checkExactTextMatch(element, expectedText) {
         const normalize = (str) => str.replace(/\s+/g, '').trim();
         return normalize(element.textContent) === normalize(expectedText);
-    }
-
-    hideEmptyJumbotrons() {
-        const jumbotrons = document.querySelectorAll('.jumbotron');
-        jumbotrons.forEach(jumbo => {
-            const textContent = jumbo.textContent.trim();
-            const hasMedia = jumbo.querySelector('img, video, iframe, canvas, svg');
-
-            const container = jumbo.closest('.container');
-            const toggleBtn = container ? container.querySelector('.sc-toggle-info-btn') : null;
-
-            // jumbotron内が空か確認
-            if (textContent.length === 0 && !hasMedia) {
-                jumbo.classList.add('sc-jumbotron-empty');
-                jumbo.style.display = 'none';
-                if (toggleBtn) {
-                    toggleBtn.style.display = 'none';
-                }
-                console.log('SITRUS Coordinator: 空のJumbotronを検出したため非表示にしました。');
-            } else {
-                jumbo.classList.remove('sc-jumbotron-empty');
-                jumbo.style.display = '';
-                if (toggleBtn) {
-                    toggleBtn.style.display = '';
-                }
-            }
-        });
-    }
-
-    /* =========================================================
-       時間割画面のUI再構築
-       ========================================================= */
-    reconstructTimetableLayout() {
-        const slideWrapper = document.querySelector('[class^="_navbar_fixed_top_slide"]');
-        const mainContainer = slideWrapper?.querySelector('.container');
-        if (!mainContainer || !slideWrapper) return;
-
-
-        const h3 = mainContainer.querySelector('h3');
-        if (!h3) return;
-
-        const titleText = h3.textContent;
-
-        // ページに応じたクラスを body に付与する
-        if (titleText.includes('時間割一覧')) {
-            document.body.classList.add('page-timetable');
-            console.log('SITRUS Coordinator: 時間割一覧ページを検出しました。');
-        } else if (titleText.includes('現在までに履修している科目')) {
-            document.body.classList.add('page-history');
-            console.log('SITRUS Coordinator: 履修履歴ページを検出しました。');
-        }
-
-        // --- 新しいヘッダー枠の作成 ---
-        const headerDiv = document.createElement('div');
-        headerDiv.className = 'sc-main-header';
-
-        const titleDiv = document.createElement('div');
-        titleDiv.className = 'sc-header-title';
-        titleDiv.appendChild(h3);
-        headerDiv.appendChild(titleDiv);
-
-        const controlsDiv = document.createElement('div');
-        controlsDiv.className = 'sc-header-controls';
-
-        // --- タブボタン(自所属/全学)の移動 ---
-        const jisyozokuBtn = document.getElementById('jisyozoku');
-        const zengakuBtn = document.getElementById('zengaku');
-
-        if (jisyozokuBtn && zengakuBtn) {
-            const btnOldWrapper = jisyozokuBtn.closest('a#hicyusen_kikan3');
-
-            const btnGroup = document.createElement('div');
-            btnGroup.className = 'sc-btn-group';
-
-            jisyozokuBtn.classList.add('sc-tab-btn');
-            zengakuBtn.classList.add('sc-tab-btn');
-
-            btnGroup.appendChild(jisyozokuBtn);
-            btnGroup.appendChild(zengakuBtn);
-            controlsDiv.appendChild(btnGroup);
-
-            if (btnOldWrapper) {
-                btnOldWrapper.style.display = 'none';
-            }
-        }
-
-        // --- 説明文の開閉 ---
-        const jumbotron = mainContainer.querySelector('.jumbotron');
-        if (jumbotron) {
-            if (!controlsDiv.querySelector('.sc-toggle-info-btn')) {
-                const toggleInfoBtn = document.createElement('button');
-                toggleInfoBtn.className = 'sc-toggle-info-btn';
-                toggleInfoBtn.innerHTML = '✕ 閉じる';
-
-                let isInfoOpen = true;
-                toggleInfoBtn.addEventListener('click', () => {
-                    isInfoOpen = !isInfoOpen;
-
-                    jumbotron.classList.toggle('sc-jumbotron-hidden', !isInfoOpen);
-
-                    // ボタンのテキストを切り替え
-                    toggleInfoBtn.innerHTML = isInfoOpen ? '✕ 閉じる' : 'ℹ 説明を表示';
-                });
-                controlsDiv.appendChild(toggleInfoBtn);
-            }
-        }
-
-        headerDiv.appendChild(controlsDiv);
-
-
-        // 時間割ページのみ表の位置がおかしいため修正
-        if (h3.textContent.includes('時間割一覧')) {
-            // ページ内にある表をすべて探す
-            const grids = document.querySelectorAll('#itiran_list, #r_list, #ji_list');
-            grids.forEach(grid => {
-                // 表が既に mainContainer の中にある場合は何もしない
-                if (mainContainer.contains(grid)) return;
-
-                // 表を囲んでいるレイアウト用の枠(.form-row)ごと、.containerの最後に移動させる
-                const wrapper = grid.closest('.form-row') || grid.parentElement;
-                if (wrapper) {
-                    mainContainer.appendChild(wrapper);
-                    console.log('SITRUS Coordinator: 迷子になっていた表を .container 内に救出しました。');
-                }
-            });
-
-            const uselessLinks = document.querySelectorAll('a[id^="hicyusen_"], a[id^="cyu_"]');
-            uselessLinks.forEach(link => {
-                if (!link.querySelector('#itiran_list, #r_list, #ji_list, .sc-main-header, .jumbotron')) {
-                    link.style.display = 'none';
-                }
-            });
-        }
-        mainContainer.prepend(headerDiv);
     }
 }
 
