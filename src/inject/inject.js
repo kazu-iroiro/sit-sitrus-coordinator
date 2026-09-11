@@ -2,7 +2,7 @@
     console.log("SITRUS Coordinator: inject.js が 読み込まれました。");
 
     // 定員表示の状態をチェック
-    const showTeiinColumnInitial = localStorage.getItem('showTeiinColumn') !== 'false';
+    const showTeiinColumnInitial = localStorage.getItem('showTeiinColumn') === 'true';
     if (!showTeiinColumnInitial) {
         console.log("SITRUS Coordinator: 定員(残)表示は無効です。inject.jsの処理をスキップします。");
         return;

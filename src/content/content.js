@@ -141,7 +141,7 @@ class SitrusCoordinator {
         // 既に存在する場合はスキップ
         if (document.getElementById('sc_teiin_wrapper')) return;
 
-        const showTeiinColumn = localStorage.getItem('showTeiinColumn') !== 'false';
+        const showTeiinColumn = localStorage.getItem('showTeiinColumn') === 'true';
 
         // チェックボックスのラッパー要素を作成
         const checkboxWrapper = document.createElement('div');
